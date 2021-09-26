@@ -57,6 +57,7 @@ flutter:
     - assets/images/profile.jpg
     - assets/icon/medicine_icon.png
     - assets/icon/hospital_icon.png
+    - assets/icon/user_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
