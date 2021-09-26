@@ -17,7 +17,7 @@ class TopBar extends StatelessWidget {
       title: Text(title),
       centerTitle: true,
       elevation: 0,
-      backgroundColor: Colors.transparent,
+      //backgroundColor: Colors.transparent,
       automaticallyImplyLeading: canGoBack,
       actions: this.actions,
     );

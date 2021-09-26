@@ -25,25 +25,22 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GradientBackground(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Image.asset(
-              'assets/icon/app_logo.png',
-              height: 110.0,
-              width: 110.0,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Image.asset(
+            'assets/icon/app_logo.png',
+            height: 110.0,
+            width: 110.0,
+          ),
+          BlocProvider<LoginBloc>(
+            create: (_) => LoginBloc(),
+            child: BlocConsumer<LoginBloc, LoginState>(
+              builder: _buildWidgetForState,
+              listener: _listenToLoginState,
             ),
-            BlocProvider<LoginBloc>(
-              create: (_) => LoginBloc(),
-              child: BlocConsumer<LoginBloc, LoginState>(
-                builder: _buildWidgetForState,
-                listener: _listenToLoginState,
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

@@ -15,18 +15,16 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GradientBackground(
-        child: Center(
-          child: BlocListener<AuthBloc, AuthState>(
-            listener: (context, state) {
-              if (state is AuthAuthenticatedState) {
-                Navigator.popAndPushNamed(context, HomePage.ROUTE);
-              } else if (state is AuthUnAuthenticatedState) {
-                Navigator.popAndPushNamed(context, LoginPage.ROUTE);
-              }
-            },
-            child: SplashScreenContentWidget(),
-          ),
+      body: Center(
+        child: BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthAuthenticatedState) {
+              Navigator.popAndPushNamed(context, HomePage.ROUTE);
+            } else if (state is AuthUnAuthenticatedState) {
+              Navigator.popAndPushNamed(context, LoginPage.ROUTE);
+            }
+          },
+          child: SplashScreenContentWidget(),
         ),
       ),
     );
