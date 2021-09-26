@@ -20,7 +20,7 @@ class GridItem extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
+            topRight: Radius.circular(40.0),
             bottomLeft: Radius.circular(16.0),
             bottomRight: Radius.circular(16.0),
           ),
