@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project_template/common/bloc/bloc_observer.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_project_template/util/logger.dart';
 import 'routes.dart';
 
 void main() async {
+  await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
   Log.init(shouldLog: true);
   Bloc.observer = FlutterBlocObserver();

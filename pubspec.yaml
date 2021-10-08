@@ -24,14 +24,18 @@ dependencies:
   flutter:
     sdk: flutter
 
+  firebase_core: "^1.4.0"
+  firebase_auth: "^3.1.0"
+  cloud_firestore: ^2.5.1
   cupertino_icons: ^1.0.2
   equatable: ^2.0.0
   json_annotation: ^4.0.1
   flutter_signin_button: ^2.0.0
-  flutter_bloc: ^7.0.1
-  url_launcher: ^6.0.7
+  url_launcher: ^6.0.9
   rxdart: ^0.27.1
   cached_network_image: ^3.0.0
+  bloc: ^7.1.0
+  flutter_bloc: ^7.2.0
 
 dev_dependencies:
   flutter_test:
@@ -58,6 +62,8 @@ flutter:
     - assets/icon/medicine_icon.png
     - assets/icon/hospital_icon.png
     - assets/icon/user_icon.png
+    - assets/icon/blood-donor_icon.png
+    - assets/icon/blood_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
