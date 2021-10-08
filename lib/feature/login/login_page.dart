@@ -8,7 +8,6 @@ import 'package:flutter_project_template/feature/login/bloc/login_state.dart';
 import 'package:flutter_project_template/feature/signup/signup_page.dart';
 import 'package:flutter_project_template/util/logger.dart';
 import 'package:flutter_project_template/util/ui_utils.dart';
-import 'package:flutter_project_template/widget/gradient_background.dart';
 import 'package:flutter_project_template/widget/input_field.dart';
 import 'package:flutter_project_template/widget/multi_state_widget.dart';
 
@@ -25,22 +24,25 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Image.asset(
-            'assets/icon/app_logo.png',
-            height: 110.0,
-            width: 110.0,
-          ),
-          BlocProvider<LoginBloc>(
-            create: (_) => LoginBloc(),
-            child: BlocConsumer<LoginBloc, LoginState>(
-              builder: _buildWidgetForState,
-              listener: _listenToLoginState,
+      body: Padding(
+        padding:  EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Image.asset(
+              'assets/icon/app_logo.png',
+              height: 110.0,
+              width: 110.0,
             ),
-          )
-        ],
+            BlocProvider<LoginBloc>(
+              create: (_) => LoginBloc(),
+              child: BlocConsumer<LoginBloc, LoginState>(
+                builder: _buildWidgetForState,
+                listener: _listenToLoginState,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -131,13 +133,9 @@ class LoginPage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Sign Up',
-              style: TextStyle(
-                  color:
-                      Theme.of(context).colorScheme.onPrimary.withAlpha(150))),
+          Text('Sign Up'),
           SizedBox(width: 4),
-          Icon(Icons.arrow_forward,
-              color: Theme.of(context).colorScheme.onPrimary.withAlpha(150))
+          Icon(Icons.arrow_forward)
         ],
       ),
     );

@@ -25,7 +25,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<bool> _checkIfLoggedIn() async {
-    bool isLoggedIn = true;
+    bool isLoggedIn = false;
     await Future.delayed(Duration.zero);
     return isLoggedIn;
   }
