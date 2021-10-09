@@ -4,14 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project_template/common/data/model/result.dart';
 import 'package:flutter_project_template/feature/home/home_page.dart';
 import 'package:flutter_project_template/feature/login/bloc/login_bloc.dart';
-import 'package:flutter_project_template/feature/login/bloc/login_state.dart';
 import 'package:flutter_project_template/feature/signup/signup_page.dart';
 import 'package:flutter_project_template/util/logger.dart';
 import 'package:flutter_project_template/util/ui_utils.dart';
 import 'package:flutter_project_template/widget/input_field.dart';
 import 'package:flutter_project_template/widget/multi_state_widget.dart';
-
-import 'bloc/login_event.dart';
 
 class LoginPage extends StatelessWidget {
   static const ROUTE = "/login";

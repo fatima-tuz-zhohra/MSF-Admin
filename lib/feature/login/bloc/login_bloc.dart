@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project_template/common/data/model/result.dart';
-import 'package:flutter_project_template/feature/login/bloc/login_event.dart';
-import 'package:flutter_project_template/feature/login/bloc/login_state.dart';
+
+part 'login_event.dart';
+part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginState());
@@ -10,7 +12,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     if (event is LoginWithEmailPassEvent) {
       yield LoginLoadingState();
-      final result = await _tryLoginWithEmailPass(event.email, event.pass);
+      final result = await _loginWithEmailPass(event.email, event.pass);
       if (result is Success) {
         yield LoginSuccessState();
       } else {
@@ -19,15 +21,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  Future<Result> _tryLoginWithEmailPass(String email, String password) async {
-    if (email.isEmpty || password.isEmpty) {
-      return Error(
-          showSnackBar: true,
-          info: Info(message: 'Please enter email and password'));
+  Future<Result> _loginWithEmailPass(String email, String password) async {
+    try {
+      final cd = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      final user = cd.user!;
+      return Success();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+      return Error();
     }
-
-    Result result =
-        Success(showSnackBar: true, info: Info(message: 'Login Successful'));
-    return result;
   }
+
 }

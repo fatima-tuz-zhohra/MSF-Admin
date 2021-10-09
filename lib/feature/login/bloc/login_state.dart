@@ -1,4 +1,4 @@
-import 'package:flutter_project_template/common/data/model/result.dart';
+part of 'login_bloc.dart';
 
 class LoginState {}
 
