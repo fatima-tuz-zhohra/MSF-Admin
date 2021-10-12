@@ -15,12 +15,12 @@ class MedicineScreen extends StatefulWidget {
 }
 
 class _MedicineScreenState extends State<MedicineScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Medicine List'),),
-
+      appBar: AppBar(
+        title: Text('Medicine List'),
+      ),
       body: MsfAdminBasePageLayout(
         child: StreamBuilder<QuerySnapshot<Object?>>(
           stream: MedicineService().getMedicines(),
@@ -66,13 +66,11 @@ class MedicineListContent extends StatefulWidget {
 }
 
 class _MedicineListContentState extends State<MedicineListContent> {
-  List<MedicineItem> medicines = [];
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ListView.builder(
-      itemCount: medicines.length,
+      itemCount: widget.medicines.length,
       itemBuilder: (BuildContext context, int index) {
         return ListItem(
           child: ListTile(
@@ -80,13 +78,12 @@ class _MedicineListContentState extends State<MedicineListContent> {
               backgroundColor: Colors.white,
               child: Image.asset('assets/icons/medicine_icon3.png'),
             ),
-            title: Text('${medicines[index].name}'),
-            subtitle: Text('${medicines[index].generic}'),
-            trailing: Text(' ৳  ${medicines[index].price}'),
+            title: Text('${widget.medicines[index].name}'),
+            subtitle: Text('${widget.medicines[index].generic}'),
+            trailing: Text(' ৳  ${widget.medicines[index].price}'),
           ),
         );
       },
     );
   }
-
 }
