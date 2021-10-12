@@ -4,6 +4,7 @@ import 'package:flutter_project_template/common/data/model/items/medicine_item.d
 import 'package:flutter_project_template/common/data/services/database.dart';
 import 'package:flutter_project_template/widget/List_item.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
+import 'package:flutter_project_template/widget/top_bar.dart';
 
 class MedicineScreen extends StatefulWidget {
   const MedicineScreen({Key? key}) : super(key: key);
@@ -18,9 +19,11 @@ class _MedicineScreenState extends State<MedicineScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Medicine List'),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        label: Text('Add New'),
       ),
+      appBar: TopBar(title: 'Medicine List'),
       body: MsfAdminBasePageLayout(
         child: StreamBuilder<QuerySnapshot<Object?>>(
           stream: MedicineService().getMedicines(),
@@ -82,9 +85,9 @@ class _MedicineListContentState extends State<MedicineListContent> {
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Chip(label: Text('${widget.medicines[index].price}')),
+                Chip(label: Text('৳ ${widget.medicines[index].price}')),
                 SizedBox(height: 2),
-                Chip(label: Text('৳ ${widget.medicines[index].generic}'))
+                Chip(label: Text('${widget.medicines[index].generic}'))
               ],
             ),
             trailing: SizedBox(
