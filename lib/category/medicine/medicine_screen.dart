@@ -79,8 +79,28 @@ class _MedicineListContentState extends State<MedicineListContent> {
               child: Image.asset('assets/icons/medicine_icon3.png'),
             ),
             title: Text('${widget.medicines[index].name}'),
-            subtitle: Text('${widget.medicines[index].generic}'),
-            trailing: Text(' ৳  ${widget.medicines[index].price}'),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Chip(label: Text('${widget.medicines[index].price}')),
+                SizedBox(height: 2),
+                Chip(label: Text('৳ ${widget.medicines[index].generic}'))
+              ],
+            ),
+            trailing: SizedBox(
+              width: 200,
+              child: Row(
+                children: [
+                  IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
+                  SizedBox(width: 8),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.cancel),
+                    color: Colors.red,
+                  ),
+                ],
+              ),
+            ),
           ),
         );
       },

@@ -46,7 +46,7 @@ class FlutterApp extends StatelessWidget {
 
   Widget _createApp() {
     return MaterialApp(
-      title: 'Flutter App',
+      title: 'Msf Admin',
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
       themeMode: ThemeMode.light,
