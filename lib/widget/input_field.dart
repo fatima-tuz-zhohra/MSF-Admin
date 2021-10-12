@@ -23,21 +23,13 @@ class CredentialInputWidget extends StatelessWidget {
       textInputAction: textInputAction,
       maxLines: 1,
       keyboardType: TextInputType.text,
-      cursorColor: Theme.of(context).colorScheme.onPrimary,
-      style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
       controller: textEditingController,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
           hintText: hint,
-          hintStyle: TextStyle(
-              color: Theme.of(context).colorScheme.onPrimary.withAlpha(150)),
           prefixIcon: prefixIcon,
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide.none),
-          fillColor:
-              Theme.of(context).colorScheme.secondaryVariant.withAlpha(120),
-          filled: true),
+          border: OutlineInputBorder(),
+      ),
     );
   }
 }
@@ -111,10 +103,12 @@ class SubmitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ButtonTheme(
       minWidth: double.infinity,
+      height: 48,
       child: MaterialButton(
         padding: EdgeInsets.symmetric(vertical: 12),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        color: Theme.of(context).colorScheme.secondary,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        color: Theme.of(context).colorScheme.primary,
+        textColor: Theme.of(context).colorScheme.onPrimary,
         onPressed: onPressed,
         child: Text(text),
       ),

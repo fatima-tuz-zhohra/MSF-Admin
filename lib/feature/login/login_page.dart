@@ -85,40 +85,37 @@ class LoginPage extends StatelessWidget {
 
   Widget _createEmailPassLoginForm(BuildContext context) {
     _passwordEditingController.clear();
-    return Column(
-      children: [
-        CredentialInputWidget(
-          textEditingController: _emailEditingController,
-          hint: 'Email',
-          textInputAction: TextInputAction.next,
-          prefixIcon: Icon(
-            Icons.email,
-            color: Theme.of(context).colorScheme.onPrimary,
+    return FractionallySizedBox(
+      widthFactor: .3,
+      child: Column(
+        children: [
+          CredentialInputWidget(
+            textEditingController: _emailEditingController,
+            hint: 'Email',
+            textInputAction: TextInputAction.next,
+            prefixIcon: Icon(Icons.email),
           ),
-        ),
-        SizedBox(height: 12),
-        CredentialInputWidget(
-          textEditingController: _passwordEditingController,
-          hint: 'Password',
-          textInputAction: TextInputAction.done,
-          prefixIcon: Icon(
-            Icons.lock,
-            color: Theme.of(context).colorScheme.onPrimary,
+          SizedBox(height: 12),
+          CredentialInputWidget(
+            textEditingController: _passwordEditingController,
+            hint: 'Password',
+            textInputAction: TextInputAction.done,
+            prefixIcon: Icon(Icons.lock),
+            obscureText: true,
           ),
-          obscureText: true,
-        ),
-        SizedBox(height: 12),
-        SubmitButton(
-          text: 'Login',
-          onPressed: () {
-            final loginBloc = BlocProvider.of<LoginBloc>(context);
-            loginBloc.add(
-              LoginWithEmailPassEvent(_emailEditingController.text,
-                  _passwordEditingController.text),
-            );
-          },
-        ),
-      ],
+          SizedBox(height: 12),
+          SubmitButton(
+            text: 'Login',
+            onPressed: () {
+              final loginBloc = BlocProvider.of<LoginBloc>(context);
+              loginBloc.add(
+                LoginWithEmailPassEvent(_emailEditingController.text,
+                    _passwordEditingController.text),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 
