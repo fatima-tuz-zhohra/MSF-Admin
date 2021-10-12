@@ -71,7 +71,7 @@ class _MedicineListContentState extends State<MedicineListContent> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Expanded(child: ListView.builder(
+    return ListView.builder(
       itemCount: medicines.length,
       itemBuilder: (BuildContext context, int index) {
         return ListItem(
@@ -86,7 +86,6 @@ class _MedicineListContentState extends State<MedicineListContent> {
           ),
         );
       },
-    ),
     );
   }
 
