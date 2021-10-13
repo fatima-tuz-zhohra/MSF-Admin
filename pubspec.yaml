@@ -64,6 +64,11 @@ flutter:
     - assets/icons/user_icon.png
     - assets/icons/blood-donor_icon.png
     - assets/icons/blood_icon.png
+    - assets/images/oxygen_logo.png
+    - assets/images/blood_logo.png
+    - assets/images/doctor_logo.png
+    - assets/images/hospital_logo.png
+    - assets/images/medicine_logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

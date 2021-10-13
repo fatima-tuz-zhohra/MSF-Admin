@@ -20,7 +20,7 @@ class HomeCategoryView extends StatelessWidget {
         children: [
           GridItem(
             title: 'Medicines',
-            image: 'assets/icons/flutter_logo.png',
+            image: 'assets/images/medicine_logo.png',
             onTap: () {
               Navigator.pushNamed(
                   context,
@@ -29,8 +29,8 @@ class HomeCategoryView extends StatelessWidget {
             },
           ),
           GridItem(
-            title: 'hospitals',
-            image: 'assets/icons/flutter_logo.png',
+            title: 'Hospitals',
+            image: 'assets/images/hospital_logo.png',
             onTap: () {
               Navigator.pushNamed(
                   context,
@@ -39,8 +39,8 @@ class HomeCategoryView extends StatelessWidget {
             },
           ),
           GridItem(
-            title: 'doctors',
-            image: 'assets/icons/flutter_logo.png',
+            title: 'Doctors',
+            image: 'assets/images/doctor_logo.png',
             onTap: () {
               Navigator.pushNamed(
                   context,
@@ -50,7 +50,7 @@ class HomeCategoryView extends StatelessWidget {
           ),
           GridItem(
             title: 'Bloods',
-            image: 'assets/icons/flutter_logo.png',
+            image: 'assets/images/blood_logo.png',
             onTap: () {
               Navigator.pushNamed(
                   context,
@@ -60,7 +60,7 @@ class HomeCategoryView extends StatelessWidget {
           ),
           GridItem(
             title: 'Oxygen',
-            image: 'assets/icons/flutter_logo.png',
+            image: 'assets/images/oxygen_logo.png',
             onTap: () {
               Navigator.pushNamed(
                   context,
