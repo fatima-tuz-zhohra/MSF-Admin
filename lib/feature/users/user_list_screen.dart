@@ -1,6 +1,7 @@
 import 'package:colorize_text_avatar/colorize_text_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_template/common/data/model/user.dart';
+import 'package:flutter_project_template/util/color_tag.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
 
 class UserListScreen extends StatelessWidget {
@@ -32,6 +33,7 @@ class UserListScreen extends StatelessWidget {
                   width: double.infinity,
                   child: DataTable(
                     horizontalMargin: 0,
+                      columnSpacing: 16,
                     columns: [
                       DataColumn(
                         label: Text('Name'),
@@ -97,8 +99,8 @@ class UserListScreen extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
-              //color: getRoleColor(userInfo.role).withOpacity(.2),
-              //border: Border.all(color: getRoleColor(userInfo.role)),
+              color: getRoleColor(userInfo.role).withOpacity(.2),
+              border: Border.all(color: getRoleColor(userInfo.role)),
               borderRadius: BorderRadius.all(Radius.circular(5.0) //
                   ),
             ),

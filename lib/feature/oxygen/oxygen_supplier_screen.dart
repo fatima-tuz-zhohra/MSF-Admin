@@ -85,18 +85,72 @@ class _OxygenListContentState extends State<OxygenListContent> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    IconButton(
-                      iconSize: 20,
-                      icon: const Icon(Icons.edit_outlined),
-                      color: theme.colorScheme.secondary,
-                      onPressed: () {
-                      },
+                    TextButton(
+                      child: Text('View', style: TextStyle(color: Colors.green)),
+                      onPressed: () {},
                     ),
-                    IconButton(
-                      iconSize: 20,
-                      icon: const Icon(Icons.delete_forever),
-                      color: theme.colorScheme.error,
+                    SizedBox(
+                      width: 6,
+                    ),
+                    TextButton(
+                      child:
+                      Text("Delete", style: TextStyle(color: Colors.redAccent)),
                       onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (_) {
+                              return AlertDialog(
+                                  title: Center(
+                                    child: Column(
+                                      children: [
+                                        Icon(Icons.warning_outlined,
+                                            size: 36, color: Colors.red),
+                                        SizedBox(height: 20),
+                                        Text("Confirm Deletion"),
+                                      ],
+                                    ),
+                                  ),
+                                  content: Container(
+                                    height: 70,
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                            "Are you sure want to delete '${oxygens[index].name}'?"),
+                                        SizedBox(
+                                          height: 16,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            ElevatedButton.icon(
+                                                icon: Icon(
+                                                  Icons.close,
+                                                  size: 14,
+                                                ),
+                                                style: ElevatedButton.styleFrom(
+                                                    primary: Colors.grey),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                label: Text("Cancel")),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            ElevatedButton.icon(
+                                                icon: Icon(
+                                                  Icons.delete,
+                                                  size: 14,
+                                                ),
+                                                style: ElevatedButton.styleFrom(
+                                                    primary: Colors.red),
+                                                onPressed: () {},
+                                                label: Text("Delete"))
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ));
+                            });
                       },
                     )
                   ],
