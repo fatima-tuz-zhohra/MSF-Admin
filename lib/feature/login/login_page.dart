@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project_template/common/data/model/result.dart';
-import 'package:flutter_project_template/feature/home/home_page.dart';
+import 'package:flutter_project_template/feature/dashboard_main/dashboard_page.dart';
 import 'package:flutter_project_template/feature/login/bloc/login_bloc.dart';
 import 'package:flutter_project_template/feature/signup/signup_page.dart';
 import 'package:flutter_project_template/util/logger.dart';

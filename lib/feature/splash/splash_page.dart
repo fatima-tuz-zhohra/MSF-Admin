@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project_template/feature/authentication/bloc/auth_bloc.dart';
 import 'package:flutter_project_template/feature/authentication/bloc/auth_event.dart';
 import 'package:flutter_project_template/feature/authentication/bloc/auth_state.dart';
-import 'package:flutter_project_template/feature/home/home_page.dart';
+import 'package:flutter_project_template/feature/dashboard_main/dashboard_page.dart';
 import 'package:flutter_project_template/feature/login/login_page.dart';
 
 class SplashPage extends StatelessWidget {

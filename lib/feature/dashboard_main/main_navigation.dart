@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_template/feature/home/profile_screen.dart';
+import 'package:flutter_project_template/feature/dashboard_main/profile_screen.dart';
 import 'package:flutter_project_template/widget/top_bar.dart';
 
 class MainNavigation extends StatelessWidget {

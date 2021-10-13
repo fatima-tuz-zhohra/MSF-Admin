@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_template/feature/home/dashbord_panel_screen.dart';
-import 'package:flutter_project_template/feature/home/home_category_view.dart';
-import 'package:flutter_project_template/feature/home/main_navigation.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
 import 'package:flutter_project_template/widget/top_bar.dart';
+
+import 'dashbord_panel_screen.dart';
+import 'dashboard_category_view.dart';
+import 'main_navigation.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
