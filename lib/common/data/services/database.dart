@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_project_template/common/data/model/items/hospital_item.dart';
+import 'package:flutter_project_template/common/data/model/items/medicine_item.dart';
 import 'package:flutter_project_template/common/data/model/profile_data.dart';
 
 class DatabaseService{
@@ -52,6 +53,10 @@ class MedicineService {
     print('User id: ${user?.uid}');
 
     return medicineCollection.snapshots();
+  }
+
+  Future<void> delete(MedicineItem medicineItem) async{
+    await medicineCollection.doc(medicineItem.id).delete().catchError((){});
   }
 }
 

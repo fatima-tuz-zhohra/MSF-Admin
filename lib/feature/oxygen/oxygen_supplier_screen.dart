@@ -86,20 +86,17 @@ class _OxygenListContentState extends State<OxygenListContent> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
-                      iconSize: 18,
-                      icon: const Icon(Icons.location_on),
+                      iconSize: 20,
+                      icon: const Icon(Icons.edit_outlined),
                       color: theme.colorScheme.secondary,
                       onPressed: () {
-                        navigateTo(oxygens[index].latitude,
-                            oxygens[index].longitude);
                       },
                     ),
                     IconButton(
-                      iconSize: 18,
-                      icon: const Icon(Icons.call),
-                      color: theme.colorScheme.secondary,
+                      iconSize: 20,
+                      icon: const Icon(Icons.delete_forever),
+                      color: theme.colorScheme.error,
                       onPressed: () {
-                        launch(('tel://${oxygens[index].phoneNo}'));
                       },
                     )
                   ],
@@ -108,14 +105,5 @@ class _OxygenListContentState extends State<OxygenListContent> {
             );
           },
     );
-  }
-
-  void navigateTo(double lat, double lng) async {
-    var uri = Uri.parse("http://maps.google.com/maps?daddr=$lat,$lng");
-    if (await canLaunch(uri.toString())) {
-      await launch(uri.toString());
-    } else {
-      throw 'Could not launch ${uri.toString()}';
-    }
   }
 }

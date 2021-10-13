@@ -65,46 +65,29 @@ class _HospitalListContentState extends State<HospitalListContent> {
           child: ListTile(
             title: Text('${hospitals[index].name}'),
             subtitle: Text('${hospitals[index].address}'),
-            trailing: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.max,
+            trailing: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                InkWell(
-                  child: Icon(
-                    Icons.location_on,
-                    color: theme.colorScheme.secondary,
-                    size: 18,
-                  ),
-                  onTap: () {
-                    navigateTo(hospitals[index].latitude,
-                        hospitals[index].longitude);
+                IconButton(
+                  iconSize: 20,
+                  icon: const Icon(Icons.edit_outlined),
+                  color: theme.colorScheme.secondary,
+                  onPressed: () {
                   },
                 ),
-                SizedBox(height: 4),
-                InkWell(
-                  child: Icon(
-                    Icons.call,
-                    color: theme.colorScheme.secondary,
-                    size: 18,
-                  ),
-                  onTap: () {
-                    launch(('tel://${hospitals[index].phoneNo}'));
+                IconButton(
+                  iconSize: 20,
+                  icon: const Icon(Icons.delete_forever),
+                  color: theme.colorScheme.error,
+                  onPressed: () {
                   },
-                ),
+                )
               ],
             ),
           ),
         );
       },
     );
-  }
-
-  void navigateTo(double lat, double lng) async {
-    var uri = Uri.parse("http://maps.google.com/maps?daddr=$lat,$lng");
-    if (await canLaunch(uri.toString())) {
-      await launch(uri.toString());
-    } else {
-      throw 'Could not launch ${uri.toString()}';
-    }
   }
 }

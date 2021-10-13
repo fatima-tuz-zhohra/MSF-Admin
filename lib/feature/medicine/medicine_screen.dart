@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_template/common/data/model/items/medicine_item.dart';
 import 'package:flutter_project_template/common/data/services/database.dart';
+import 'package:flutter_project_template/util/ui_utils.dart';
 import 'package:flutter_project_template/widget/List_item.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
 import 'package:flutter_project_template/widget/top_bar.dart';
@@ -41,6 +42,7 @@ class _MedicineScreenState extends State<MedicineScreen> {
               data.docs.forEach((element) {
                 final dbItem = element.data()! as Map<String, dynamic>;
                 final medicine = MedicineItem(
+                    element.id,
                     dbItem['name'],
                     dbItem['generic'],
                     dbItem['companyName'],
@@ -90,19 +92,26 @@ class _MedicineListContentState extends State<MedicineListContent> {
                 Chip(label: Text('${widget.medicines[index].generic}'))
               ],
             ),
-            trailing: SizedBox(
-              width: 200,
-              child: Row(
-                children: [
-                  IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
-                  SizedBox(width: 8),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.cancel),
-                    color: Colors.red,
-                  ),
-                ],
-              ),
+            trailing: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  iconSize: 20,
+                  icon: const Icon(Icons.edit_outlined),
+                  color: theme.colorScheme.secondary,
+                  onPressed: () {},
+                ),
+                IconButton(
+                  iconSize: 20,
+                  icon: const Icon(Icons.delete_forever),
+                  color: theme.colorScheme.error,
+                  onPressed: () async {
+                  await MedicineService().delete(widget.medicines[index]);
+                  showSnackbar(context, Text('Deleted successfully'));
+                  },
+                )
+              ],
             ),
           ),
         );
