@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project_template/common/data/model/result.dart';
 
@@ -25,8 +26,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<bool> _checkIfLoggedIn() async {
-    bool isLoggedIn = true;
-    await Future.delayed(Duration.zero);
+    bool isLoggedIn = false;
+    final firebaseUser = await FirebaseAuth.instance.authStateChanges().first;
+    isLoggedIn = firebaseUser != null;
     return isLoggedIn;
   }
 

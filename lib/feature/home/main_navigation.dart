@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_template/feature/home/Profile.dart';
+import 'package:flutter_project_template/feature/home/profile_screen.dart';
 import 'package:flutter_project_template/widget/top_bar.dart';
 
 class MainNavigation extends StatelessWidget {
@@ -11,7 +11,7 @@ class MainNavigation extends StatelessWidget {
       child: Column(
         children: [
           TopBar(title: 'Menu',canGoBack: false,),
-          Profile(),
+          ProfileScreen(),
           Text('Main Navigation'),
           TextButton(
             style: TextButton.styleFrom(

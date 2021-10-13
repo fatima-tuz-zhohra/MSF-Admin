@@ -30,20 +30,21 @@ class SignupPage extends StatelessWidget {
     return BlocProvider<SignUpBloc>(
       create: (context) => SignUpBloc(),
       child: Scaffold(
-        body: GradientBackground(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              children: [
-                TopBar(title: 'Sign Up'),
-                SizedBox(height: 16),
-                Expanded(
-                  child: BlocConsumer<SignUpBloc, SignUpState>(
-                    builder: _buildWidgetForState,
-                    listener: _listenToAuthState,
-                  ),
+        body: Padding(
+          padding:  EdgeInsets.all(16),
+          child: Column(
+            children: [
+              TopBar(title: 'Sign Up'),
+              SizedBox(height: 16),
+              Expanded(
+                child: BlocConsumer<SignUpBloc, SignUpState>(
+                  builder: _buildWidgetForState,
+                  listener: _listenToAuthState,
                 ),
-              ],
-            )),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

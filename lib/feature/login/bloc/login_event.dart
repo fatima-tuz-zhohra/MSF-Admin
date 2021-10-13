@@ -1,3 +1,5 @@
+part of 'login_bloc.dart';
+
 class LoginEvent{}
 
 class LoginWithEmailPassEvent extends LoginEvent {
@@ -6,3 +8,5 @@ class LoginWithEmailPassEvent extends LoginEvent {
 
   LoginWithEmailPassEvent(this.email, this.pass);
 }
+
+class LoginWithGoogleEvent extends LoginEvent {}

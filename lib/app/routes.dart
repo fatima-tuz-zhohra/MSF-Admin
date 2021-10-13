@@ -8,6 +8,7 @@ import 'package:flutter_project_template/feature/home/home_page.dart';
 import 'package:flutter_project_template/feature/login/login_page.dart';
 import 'package:flutter_project_template/feature/signup/signup_page.dart';
 import 'package:flutter_project_template/feature/splash/splash_page.dart';
+import 'package:flutter_project_template/feature/users/user_list_screen.dart';
 
 final initialRoute = SplashPage.ROUTE;
 final appRoutes = {
@@ -21,4 +22,5 @@ final appRoutes = {
   DoctorScreen.ROUTE: (context) => DoctorScreen(),
   HospitalScreen.ROUTE: (context) => HospitalScreen(),
   OxygenSupplierScreen.ROUTE: (context) => OxygenSupplierScreen(),
+  UserListScreen.ROUTE: (context) => UserListScreen(),
 };
