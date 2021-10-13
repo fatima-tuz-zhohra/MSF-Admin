@@ -79,7 +79,7 @@ class _MedicineListContentState extends State<MedicineListContent> {
           child: ListTile(
             leading: CircleAvatar(
               backgroundColor: Colors.white,
-              child: Image.asset('assets/icons/medicine_icon3.png'),
+              child: Image.asset('assets/icons/medicine_icon.png'),
             ),
             title: Text('${widget.medicines[index].name}'),
             subtitle: Column(

@@ -5,7 +5,6 @@ import 'package:flutter_project_template/feature/authentication/bloc/auth_event.
 import 'package:flutter_project_template/feature/authentication/bloc/auth_state.dart';
 import 'package:flutter_project_template/feature/home/home_page.dart';
 import 'package:flutter_project_template/feature/login/login_page.dart';
-import 'package:flutter_project_template/widget/gradient_background.dart';
 
 class SplashPage extends StatelessWidget {
   static const ROUTE = "/splash";
@@ -40,6 +39,6 @@ class SplashScreenContentWidget extends StatelessWidget {
       final bloc = BlocProvider.of<AuthBloc>(context);
       bloc.add(CheckAuthStateEvent());
     });
-    return Image.asset('assets/icon/app_logo.png', height: 140, width: 140);
+    return Image.asset('assets/icons/app_logo.png', height: 140, width: 140);
   }
 }
