@@ -7,7 +7,7 @@ const lightColorScheme = ColorScheme.light(
   secondaryVariant: const Color(0xff32adf8),
   surface: Colors.white,
   background: Colors.white,
-  error: const Color(0xffb00020),
+  error: Colors.red,
   onPrimary: Colors.white,
   onSecondary: Colors.black,
   onSurface: Colors.black,

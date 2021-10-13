@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_project_template/common/data/model/items/hospital_item.dart';
+import 'package:flutter_project_template/common/data/model/items/medicine_item.dart';
 import 'package:flutter_project_template/common/data/model/profile_data.dart';
-import 'package:flutter_project_template/feature/home/profile_screen.dart';
 
 class DatabaseService{
   final String uid;
@@ -52,5 +53,47 @@ class MedicineService {
     print('User id: ${user?.uid}');
 
     return medicineCollection.snapshots();
+  }
+
+  Future<void> delete(MedicineItem medicineItem) async{
+    await medicineCollection.doc(medicineItem.id).delete().catchError((){});
+  }
+}
+
+class HospitalService {
+  HospitalService();
+
+  final CollectionReference hospitalCollection =
+  FirebaseFirestore.instance.collection('Hospitals');
+
+  Stream<List<HospitalItem>> getHospital() {
+    final stream = hospitalCollection.snapshots();
+    return stream.map((updatedCollection) {
+      final List<HospitalItem> hospitals = [];
+      updatedCollection.docs.forEach((element) {
+        final dbItem = element.data()! as Map<String, dynamic>;
+        final hospital = HospitalItem(
+          dbItem['name'],
+          dbItem['address'],
+          dbItem['latitude'],
+          dbItem['longitude'],
+          dbItem['type'],
+          dbItem['phoneNo'],
+        );
+        hospitals.add(hospital);
+      });
+      return hospitals;
+    });
+  }
+}
+
+class OxygenService {
+  OxygenService();
+
+  final CollectionReference oxygenCollection =
+  FirebaseFirestore.instance.collection('Oxygen_Supplier');
+
+  Stream<QuerySnapshot<Object?>> getOxygen() {
+    return oxygenCollection.snapshots();
   }
 }

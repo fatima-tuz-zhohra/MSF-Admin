@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_template/category/blood/blood_bank_screen.dart';
-import 'package:flutter_project_template/category/dortor/doctor_screen.dart';
-import 'package:flutter_project_template/category/hospital/hospital_screen.dart';
-import 'package:flutter_project_template/category/medicine/medicine_screen.dart';
-import 'package:flutter_project_template/category/oxygen/osygen_supplier_screen.dart';
+import 'package:flutter_project_template/feature/blood/blood_bank_screen.dart';
+import 'package:flutter_project_template/feature/doctor/doctor_screen.dart';
+import 'package:flutter_project_template/feature/hospital/hospital_screen.dart';
+import 'package:flutter_project_template/feature/medicine/medicine_screen.dart';
+import 'package:flutter_project_template/feature/oxygen/oxygen_supplier_screen.dart';
 import 'package:flutter_project_template/widget/grid_item.dart';
 
 class HomeCategoryView extends StatelessWidget {
@@ -20,7 +20,7 @@ class HomeCategoryView extends StatelessWidget {
         children: [
           GridItem(
             title: 'Medicines',
-            image: 'assets/icon/flutter_logo.png',
+            image: 'assets/images/medicine_logo.png',
             onTap: () {
               Navigator.pushNamed(
                   context,
@@ -29,8 +29,8 @@ class HomeCategoryView extends StatelessWidget {
             },
           ),
           GridItem(
-            title: 'hospitals',
-            image: 'assets/icon/flutter_logo.png',
+            title: 'Hospitals',
+            image: 'assets/images/hospital_logo.png',
             onTap: () {
               Navigator.pushNamed(
                   context,
@@ -39,8 +39,8 @@ class HomeCategoryView extends StatelessWidget {
             },
           ),
           GridItem(
-            title: 'doctors',
-            image: 'assets/icon/flutter_logo.png',
+            title: 'Doctors',
+            image: 'assets/images/doctor_logo.png',
             onTap: () {
               Navigator.pushNamed(
                   context,
@@ -50,7 +50,7 @@ class HomeCategoryView extends StatelessWidget {
           ),
           GridItem(
             title: 'Bloods',
-            image: 'assets/icon/flutter_logo.png',
+            image: 'assets/images/blood_logo.png',
             onTap: () {
               Navigator.pushNamed(
                   context,
@@ -60,7 +60,7 @@ class HomeCategoryView extends StatelessWidget {
           ),
           GridItem(
             title: 'Oxygen',
-            image: 'assets/icon/flutter_logo.png',
+            image: 'assets/images/oxygen_logo.png',
             onTap: () {
               Navigator.pushNamed(
                   context,

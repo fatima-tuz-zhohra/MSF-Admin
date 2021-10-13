@@ -30,7 +30,7 @@ class DashboardPanelScreen extends StatelessWidget {
                   return DashboardListView(
                     title: '${data.length}',
                     subTitle: 'User Registrations',
-                    image: 'assets/icon/user_icon.png',
+                    image: 'assets/icons/user_icon.png',
                     onTap: () {
                       Navigator.pushNamed(context, UserListScreen.ROUTE, arguments: data);
                     },
@@ -44,7 +44,7 @@ class DashboardPanelScreen extends StatelessWidget {
           DashboardListView(
             title: '150',
             subTitle: 'Donor Request',
-            image: 'assets/icon/blood-donor_icon.png',
+            image: 'assets/icons/blood-donor_icon.png',
             onTap: () {},
             color: Colors.green.shade300,
             color2: Colors.green.shade500,
@@ -52,7 +52,7 @@ class DashboardPanelScreen extends StatelessWidget {
           DashboardListView(
             title: '150',
             subTitle: 'Blood Request Post',
-            image: 'assets/icon/blood_icon.png',
+            image: 'assets/icons/blood_icon.png',
             onTap: () {},
             color: Colors.orange.shade300,
             color2: Colors.orange.shade500,
