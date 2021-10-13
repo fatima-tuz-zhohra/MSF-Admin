@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_project_template/common/data/model/items/hospital_item.dart';
 import 'package:flutter_project_template/common/data/model/profile_data.dart';
-import 'package:flutter_project_template/feature/home/profile_screen.dart';
 
 class DatabaseService{
   final String uid;
@@ -80,5 +79,16 @@ class HospitalService {
       });
       return hospitals;
     });
+  }
+}
+
+class OxygenService {
+  OxygenService();
+
+  final CollectionReference oxygenCollection =
+  FirebaseFirestore.instance.collection('Oxygen_Supplier');
+
+  Stream<QuerySnapshot<Object?>> getOxygen() {
+    return oxygenCollection.snapshots();
   }
 }
