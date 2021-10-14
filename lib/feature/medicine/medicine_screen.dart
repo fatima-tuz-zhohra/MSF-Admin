@@ -84,7 +84,7 @@ class _MedicineListContentState extends State<MedicineListContent> {
         return ListItem(
           child: ListTile(
             leading: CircleAvatar(
-              backgroundColor: Colors.white,
+              backgroundColor: Theme.of(context).colorScheme.background,
               child: Image.asset('assets/icons/medicine_icon.png'),
             ),
             title: Text('${widget.medicines[index].name}'),

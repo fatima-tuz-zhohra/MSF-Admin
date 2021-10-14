@@ -45,10 +45,10 @@ class DashboardListView extends StatelessWidget {
                     children: [
                   Text(title,
                       style: theme.textTheme.headline4
-                          ?.copyWith(fontWeight: FontWeight.bold,color: Colors.white)
+                          ?.copyWith(fontWeight: FontWeight.bold,color: Theme.of(context).colorScheme.background)
                   ),
                   SizedBox(height: 10),
-                  Text(subTitle, style: theme.textTheme.bodyText2?.copyWith(color: Colors.white)),
+                  Text(subTitle, style: theme.textTheme.bodyText2?.copyWith(color: Theme.of(context).colorScheme.background)),
                 ]),
               ),
               Positioned(
@@ -59,7 +59,7 @@ class DashboardListView extends StatelessWidget {
                   padding: EdgeInsets.all(4),
                   color: color2,
                   child: Text('More Info', textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyText1?.copyWith(color: Colors.white, fontSize: 10),),
+                  style: theme.textTheme.bodyText1?.copyWith(color: Theme.of(context).colorScheme.background, fontSize: 10),),
                 ),
               )
             ],

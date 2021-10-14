@@ -76,8 +76,8 @@ class UserListScreen extends StatelessWidget {
             children: [
               TextAvatar(
                 size: 35,
-                backgroundColor: Colors.white,
-                textColor: Colors.white,
+                backgroundColor: Theme.of(context).colorScheme.background,
+                textColor: Theme.of(context).colorScheme.background,
                 fontSize: 14,
                 upperCase: true,
                 numberLetters: 1,
@@ -114,7 +114,7 @@ class UserListScreen extends StatelessWidget {
           Row(
             children: [
               TextButton(
-                child: Text('View', style: TextStyle(color: Colors.green)),
+                child: Text('View', style: TextStyle(color: Theme.of(context).colorScheme.primary)),
                 onPressed: () {},
               ),
               SizedBox(
@@ -122,7 +122,7 @@ class UserListScreen extends StatelessWidget {
               ),
               TextButton(
                 child:
-                    Text("Delete", style: TextStyle(color: Colors.redAccent)),
+                    Text("Delete", style: TextStyle(color: Theme.of(context).colorScheme.error)),
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -132,7 +132,7 @@ class UserListScreen extends StatelessWidget {
                               child: Column(
                                 children: [
                                   Icon(Icons.warning_outlined,
-                                      size: 36, color: Colors.red),
+                                      size: 36, color: Theme.of(context).colorScheme.error),
                                   SizedBox(height: 20),
                                   Text("Confirm Deletion"),
                                 ],
@@ -170,7 +170,7 @@ class UserListScreen extends StatelessWidget {
                                             size: 14,
                                           ),
                                           style: ElevatedButton.styleFrom(
-                                              primary: Colors.red),
+                                              primary: Theme.of(context).colorScheme.error),
                                           onPressed: () {},
                                           label: Text("Delete"))
                                     ],

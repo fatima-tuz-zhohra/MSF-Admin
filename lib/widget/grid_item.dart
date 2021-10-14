@@ -35,7 +35,7 @@ class GridItem extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 30,
-                backgroundColor: Colors.white70,
+                backgroundColor: Theme.of(context).colorScheme.background.withAlpha(200),
                 backgroundImage: AssetImage(image),
               ),
               Text(
