@@ -7,6 +7,8 @@ import 'package:flutter_project_template/widget/List_item.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
 import 'package:flutter_project_template/widget/top_bar.dart';
 
+import 'add_medicine_screen.dart';
+
 class MedicineScreen extends StatefulWidget {
   const MedicineScreen({Key? key}) : super(key: key);
 
@@ -21,7 +23,9 @@ class _MedicineScreenState extends State<MedicineScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, AddMedicineScreen.ROUTE);
+        },
         label: Text('Add New'),
       ),
       appBar: TopBar(title: 'Medicine List'),

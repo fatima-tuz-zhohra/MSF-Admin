@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
 import 'package:flutter_project_template/widget/top_bar.dart';
@@ -20,7 +21,9 @@ class HomePage extends StatelessWidget {
             SliverFillRemaining(
               child: Column(
                 children: [
-                  TopBar(title: 'Welcome'),
+                  TopBar(title: 'DashBoard'),
+                  Text("Hello, "),
+                  Text('Welcome to your dashboard'),
                   SizedBox(height: 16),
                   DashboardPanelScreen(),
                   SizedBox(height: 16),

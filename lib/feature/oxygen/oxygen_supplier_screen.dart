@@ -5,7 +5,6 @@ import 'package:flutter_project_template/common/data/services/database.dart';
 import 'package:flutter_project_template/widget/List_item.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
 import 'package:flutter_project_template/widget/top_bar.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class OxygenSupplierScreen extends StatefulWidget {
   const OxygenSupplierScreen({Key? key}) : super(key: key);
@@ -22,7 +21,7 @@ class _OxygenSupplierScreenState extends State<OxygenSupplierScreen> {
     return Scaffold(
       appBar: TopBar(title: 'Oxygen Supplier List'),
       body: MsfAdminBasePageLayout(
-        child:  StreamBuilder<QuerySnapshot<Object?>>(
+        child: StreamBuilder<QuerySnapshot<Object?>>(
           stream: OxygenService().getOxygen(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -37,12 +36,8 @@ class _OxygenSupplierScreenState extends State<OxygenSupplierScreen> {
 
               data.docs.forEach((element) {
                 final dbItem = element.data()! as Map<String, dynamic>;
-                final oxygen = OxygenItem(
-                    dbItem['name'],
-                    dbItem['address'],
-                    dbItem['PhoneNo'],
-                    dbItem['latitude'],
-                    dbItem['longitude']);
+                final oxygen = OxygenItem(dbItem['name'], dbItem['address'],
+                    dbItem['PhoneNo'], dbItem['latitude'], dbItem['longitude']);
                 oxygens.add(oxygen);
               });
               return OxygenListContent(oxygens: oxygens);
@@ -75,89 +70,90 @@ class _OxygenListContentState extends State<OxygenListContent> {
       oxygens = widget.oxygens;
     }
     return ListView.builder(
-          itemCount: oxygens.length,
-          itemBuilder: (BuildContext context, int index) {
-            return ListItem(
-              child: ListTile(
-                title: Text('${oxygens[index].name}'),
-                subtitle: Text('${oxygens[index].address}'),
-                trailing: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    TextButton(
-                      child: Text('View', style: TextStyle(color: Colors.green)),
-                      onPressed: () {},
-                    ),
-                    SizedBox(
-                      width: 6,
-                    ),
-                    TextButton(
-                      child:
-                      Text("Delete", style: TextStyle(color: Colors.redAccent)),
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (_) {
-                              return AlertDialog(
-                                  title: Center(
-                                    child: Column(
-                                      children: [
-                                        Icon(Icons.warning_outlined,
-                                            size: 36, color: Colors.red),
-                                        SizedBox(height: 20),
-                                        Text("Confirm Deletion"),
-                                      ],
-                                    ),
-                                  ),
-                                  content: Container(
-                                    height: 70,
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                            "Are you sure want to delete '${oxygens[index].name}'?"),
-                                        SizedBox(
-                                          height: 16,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            ElevatedButton.icon(
-                                                icon: Icon(
-                                                  Icons.close,
-                                                  size: 14,
-                                                ),
-                                                style: ElevatedButton.styleFrom(
-                                                    primary: Colors.grey),
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                                label: Text("Cancel")),
-                                            SizedBox(
-                                              width: 20,
-                                            ),
-                                            ElevatedButton.icon(
-                                                icon: Icon(
-                                                  Icons.delete,
-                                                  size: 14,
-                                                ),
-                                                style: ElevatedButton.styleFrom(
-                                                    primary: Colors.red),
-                                                onPressed: () {},
-                                                label: Text("Delete"))
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ));
-                            });
-                      },
-                    )
-                  ],
+      itemCount: oxygens.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ListItem(
+          child: ListTile(
+            title: Text('${oxygens[index].name}'),
+            subtitle: Text('${oxygens[index].address}'),
+            trailing: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextButton(
+                  child: Text('View', style: TextStyle(color: Colors.green)),
+                  onPressed: () {},
                 ),
-              ),
-            );
-          },
+                SizedBox(
+                  width: 6,
+                ),
+                TextButton(
+                  child:
+                      Text("Delete", style: TextStyle(color: Colors.redAccent)),
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (_) {
+                          return AlertDialog(
+                              title: Center(
+                                child: Column(
+                                  children: [
+                                    Icon(Icons.warning_outlined,
+                                        size: 36, color: Colors.red),
+                                    SizedBox(height: 20),
+                                    Text("Confirm Deletion"),
+                                  ],
+                                ),
+                              ),
+                              content: Container(
+                                height: 70,
+                                child: Column(
+                                  children: [
+                                    Text(
+                                        "Are you sure want to delete '${oxygens[index].name}'?"),
+                                    SizedBox(
+                                      height: 16,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ElevatedButton.icon(
+                                            icon: Icon(
+                                              Icons.close,
+                                              size: 14,
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                                primary: Colors.grey),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            label: Text("Cancel")),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        ElevatedButton.icon(
+                                            icon: Icon(
+                                              Icons.delete,
+                                              size: 14,
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                                primary: Colors.red),
+                                            onPressed: () {},
+                                            label: Text("Delete"))
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ));
+                        });
+                  },
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
