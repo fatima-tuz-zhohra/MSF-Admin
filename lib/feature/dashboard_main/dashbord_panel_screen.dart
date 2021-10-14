@@ -3,12 +3,14 @@ import 'package:flutter_project_template/common/data/model/user.dart';
 import 'package:flutter_project_template/common/data/services/users_service.dart';
 import 'package:flutter_project_template/feature/users/user_list_screen.dart';
 import 'package:flutter_project_template/widget/dashboard_list_view.dart';
+import 'package:flutter_project_template/util/ui_utils.dart';
 
 class DashboardPanelScreen extends StatelessWidget {
   const DashboardPanelScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       height: 130,
       child: ListView(
@@ -32,10 +34,15 @@ class DashboardPanelScreen extends StatelessWidget {
                     subTitle: 'User Registrations',
                     image: 'assets/icons/user_icon.png',
                     onTap: () {
-                      Navigator.pushNamed(context, UserListScreen.ROUTE, arguments: data);
+                      Navigator.pushNamed(context, UserListScreen.ROUTE,
+                          arguments: data);
                     },
-                    color: Colors.blue.shade300,
-                    color2: Colors.blue.shade500,
+                    color: theme.isDarkMode()
+                        ? Colors.blue.shade200
+                        : Colors.blue.shade300,
+                    color2: theme.isDarkMode()
+                        ? Colors.blue.shade300
+                        : Colors.blue.shade500,
                   );
                 } else {
                   return Container();
@@ -46,16 +53,24 @@ class DashboardPanelScreen extends StatelessWidget {
             subTitle: 'Donor Request',
             image: 'assets/icons/blood-donor_icon.png',
             onTap: () {},
-            color: Colors.green.shade300,
-            color2: Colors.green.shade500,
+            color: theme.isDarkMode()
+                ? Colors.green.shade200
+                : Colors.green.shade300,
+            color2: theme.isDarkMode()
+                ? Colors.green.shade300
+                : Colors.green.shade500,
           ),
           DashboardListView(
             title: '150',
             subTitle: 'Blood Request Post',
             image: 'assets/icons/blood_icon.png',
             onTap: () {},
-            color: Colors.orange.shade300,
-            color2: Colors.orange.shade500,
+            color: theme.isDarkMode()
+                ? Colors.orange.shade200
+                : Colors.orange.shade300,
+            color2: theme.isDarkMode()
+                ? Colors.orange.shade300
+                : Colors.orange.shade500,
           ),
         ],
       ),

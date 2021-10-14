@@ -27,36 +27,41 @@ class UserListScreen extends StatelessWidget {
                 'Recent Users',
                 style: Theme.of(context).textTheme.subtitle1,
               ),
-              SingleChildScrollView(
-                //scrollDirection: Axis.horizontal,
-                child: SizedBox(
-                  width: double.infinity,
-                  child: DataTable(
-                    horizontalMargin: 0,
-                      columnSpacing: 16,
-                    columns: [
-                      DataColumn(
-                        label: Text('Name'),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SingleChildScrollView(
+                    //scrollDirection: Axis.horizontal,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: DataTable(
+                        horizontalMargin: 0,
+                        columnSpacing: 16,
+                        columns: [
+                          DataColumn(
+                            label: Text('Name'),
+                          ),
+                          DataColumn(
+                            label: Text('Role'),
+                          ),
+                          DataColumn(
+                            label: Text('E-mail'),
+                          ),
+                          DataColumn(
+                            label: Text('Phone No'),
+                          ),
+                          DataColumn(
+                            label: Text('Registration Date'),
+                          ),
+                          DataColumn(
+                            label: Text('Operation'),
+                          ),
+                        ],
+                        rows: List.generate(
+                          users.length,
+                          (index) => usersDataRow(users[index], context),
+                        ),
                       ),
-                      DataColumn(
-                        label: Text('Role'),
-                      ),
-                      DataColumn(
-                        label: Text('E-mail'),
-                      ),
-                      DataColumn(
-                        label: Text('Phone No'),
-                      ),
-                      DataColumn(
-                        label: Text('Registration Date'),
-                      ),
-                      DataColumn(
-                        label: Text('Operation'),
-                      ),
-                    ],
-                    rows: List.generate(
-                      users.length,
-                      (index) => usersDataRow(users[index], context),
                     ),
                   ),
                 ),
@@ -114,15 +119,18 @@ class UserListScreen extends StatelessWidget {
           Row(
             children: [
               TextButton(
-                child: Text('View', style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+                child: Text('View',
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary)),
                 onPressed: () {},
               ),
               SizedBox(
                 width: 6,
               ),
               TextButton(
-                child:
-                    Text("Delete", style: TextStyle(color: Theme.of(context).colorScheme.error)),
+                child: Text("Delete",
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.error)),
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -132,7 +140,9 @@ class UserListScreen extends StatelessWidget {
                               child: Column(
                                 children: [
                                   Icon(Icons.warning_outlined,
-                                      size: 36, color: Theme.of(context).colorScheme.error),
+                                      size: 36,
+                                      color:
+                                          Theme.of(context).colorScheme.error),
                                   SizedBox(height: 20),
                                   Text("Confirm Deletion"),
                                 ],
@@ -170,7 +180,9 @@ class UserListScreen extends StatelessWidget {
                                             size: 14,
                                           ),
                                           style: ElevatedButton.styleFrom(
-                                              primary: Theme.of(context).colorScheme.error),
+                                              primary: Theme.of(context)
+                                                  .colorScheme
+                                                  .error),
                                           onPressed: () {},
                                           label: Text("Delete"))
                                     ],
