@@ -7,8 +7,8 @@ import 'dashbord_panel_screen.dart';
 import 'dashboard_category_view.dart';
 import 'main_navigation.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({Key? key}) : super(key: key);
   static const ROUTE = "/home";
 
   @override

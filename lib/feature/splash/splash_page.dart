@@ -18,7 +18,7 @@ class SplashPage extends StatelessWidget {
         child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthAuthenticatedState) {
-              Navigator.popAndPushNamed(context, HomePage.ROUTE);
+              Navigator.popAndPushNamed(context, DashboardScreen.ROUTE);
             } else if (state is AuthUnAuthenticatedState) {
               Navigator.popAndPushNamed(context, LoginPage.ROUTE);
             }

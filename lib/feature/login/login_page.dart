@@ -48,7 +48,7 @@ class LoginPage extends StatelessWidget {
     Log.info(state.runtimeType);
     if (state is LoginSuccessState) {
       Future.delayed(Duration.zero).then((value) => Navigator.of(context)
-          .pushNamedAndRemoveUntil(HomePage.ROUTE, (route) => false));
+          .pushNamedAndRemoveUntil(DashboardScreen.ROUTE, (route) => false));
     } else if (state is LoginFailedState) {
       final error = state.data as Error;
       if (error.showSnackBar == true && error.info?.message != null) {

@@ -69,7 +69,7 @@ class SignupPage extends StatelessWidget {
       Future.delayed(Duration.zero).then(
         (value) => Navigator.pushNamedAndRemoveUntil(
           context,
-          HomePage.ROUTE,
+          DashboardScreen.ROUTE,
           (route) => false,
         ),
       );

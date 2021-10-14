@@ -8,7 +8,6 @@ class MsfAdminBasePageLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey.shade200,
       child: this.child,
     );
   }
