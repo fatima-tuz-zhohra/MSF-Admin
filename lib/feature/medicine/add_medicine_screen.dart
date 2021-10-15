@@ -16,6 +16,8 @@ class AddMedicineScreen extends StatelessWidget {
   final medicinePriceController = TextEditingController();
   final medicineDescriptionController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +29,10 @@ class AddMedicineScreen extends StatelessWidget {
           slivers: [
             SliverFillRemaining(
               hasScrollBody: false,
-              child: _buildBody(context),
+              child: FractionallySizedBox(
+                widthFactor: .7,
+                child: _buildBody(context),
+              ),
             ),
           ],
         ),
@@ -36,49 +41,103 @@ class AddMedicineScreen extends StatelessWidget {
   }
 
   Widget _buildBody(BuildContext context) {
-    return Form(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 16,
-          ),
-          AddInputField(
-              hintText: 'Medicine Name', controller: medicineNameController),
-          SizedBox(
-            height: 12,
-          ),
-          AddInputField(
+    return Card(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 16,
+            ),
+            AddInputField(
+              hintText: 'Medicine Name',
+              controller: medicineNameController,
+              validator: (value) {
+                if (value == null || value.isEmpty)
+                  return 'Please enter medicine name';
+                return null;
+              },
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            AddInputField(
               hintText: 'Medicine Generic',
-              controller: medicineGenericController),
-          SizedBox(
-            height: 12,
-          ),
-          AddInputField(
+              controller: medicineGenericController,
+              validator: (value) {
+                if (value == null || value.isEmpty)
+                  return 'Please enter medicine generic';
+                return null;
+              },
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            AddInputField(
               hintText: 'Company Name',
-              controller: medicineCompanyNameController),
-          SizedBox(
-            height: 12,
-          ),
-          AddInputField(
-              hintText: 'Medicine Price', controller: medicinePriceController),
-          SizedBox(
-            height: 12,
-          ),
-          AddInputField(
+              controller: medicineCompanyNameController,
+              validator: (value) {
+                if (value == null || value.isEmpty)
+                  return 'Please enter medicine company name';
+                return null;
+              },
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            AddInputField(
+              hintText: 'Medicine Price',
+              controller: medicinePriceController,
+              validator: (value) {
+                if (value == null || value.isEmpty)
+                  return 'Please enter medicine price';
+                return null;
+              },
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            AddInputField(
               hintText: 'Medicine Description',
-              controller: medicineDescriptionController),
-          SizedBox(
-            height: 20,
-          ),
-          RoundedButton(text: 'Submit Medicine',
-              press: () {
-            /*if()  {}
-            else{
-              showSnackbar(context, Text('Invalid Inputs'),);
-            }*/
-              },)
-        ],
+              controller: medicineDescriptionController,
+              maxline: 5,
+              validator: (value) {
+                if (value == null || value.isEmpty)
+                  return 'Please enter medicine Description';
+                return null;
+              },
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              width: 300,
+              child: RoundedButton(
+                text: 'Save new medicine',
+                press: () async {
+                  if (_formKey.currentState?.validate() == true) {
+                    await _saveNewMedicine();
+                    Navigator.pop(context);
+                  } else {
+                    showSnackbar(
+                      context,
+                      Text('Invalid Inputs'),
+                    );
+                  }
+                },
+              ),
+            )
+          ],
+        ),
       ),
     );
+  }
+
+  Future<void> _saveNewMedicine() async {
+    final name = medicineNameController.text;
+    final generic = medicineGenericController.text;
+    final company = medicineCompanyNameController.text;
+    final price = medicinePriceController.text;
+    final description = medicineDescriptionController.text;
   }
 }

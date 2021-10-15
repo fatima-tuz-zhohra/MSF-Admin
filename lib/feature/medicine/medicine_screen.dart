@@ -82,40 +82,42 @@ class _MedicineListContentState extends State<MedicineListContent> {
       itemCount: widget.medicines.length,
       itemBuilder: (BuildContext context, int index) {
         return ListItem(
-          child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: Theme.of(context).colorScheme.background,
-              child: Image.asset('assets/icons/medicine_icon.png'),
-            ),
-            title: Text('${widget.medicines[index].name}'),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Chip(label: Text('৳ ${widget.medicines[index].price}')),
-                SizedBox(height: 2),
-                Chip(label: Text('${widget.medicines[index].generic}'))
-              ],
-            ),
-            trailing: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  iconSize: 20,
-                  icon: const Icon(Icons.edit_outlined),
-                  color: theme.colorScheme.secondary,
-                  onPressed: () {},
-                ),
-                IconButton(
-                  iconSize: 20,
-                  icon: const Icon(Icons.delete_forever),
-                  color: theme.colorScheme.error,
-                  onPressed: () async {
-                  await MedicineService().delete(widget.medicines[index]);
-                  showSnackbar(context, Text('Deleted successfully'));
-                  },
-                )
-              ],
+          child: Card(
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.background,
+                child: Image.asset('assets/icons/medicine_icon.png'),
+              ),
+              title: Text('${widget.medicines[index].name}'),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Chip(label: Text('৳ ${widget.medicines[index].price}')),
+                  SizedBox(height: 2),
+                  Chip(label: Text('${widget.medicines[index].generic}'))
+                ],
+              ),
+              trailing: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    iconSize: 20,
+                    icon: const Icon(Icons.edit_outlined),
+                    color: theme.colorScheme.secondary,
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    iconSize: 20,
+                    icon: const Icon(Icons.delete_forever),
+                    color: theme.colorScheme.error,
+                    onPressed: () async {
+                      await MedicineService().delete(widget.medicines[index]);
+                      showSnackbar(context, Text('Deleted successfully'));
+                    },
+                  )
+                ],
+              ),
             ),
           ),
         );
