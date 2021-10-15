@@ -7,43 +7,72 @@ class MainNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TopBar(title: 'Menu',canGoBack: false,),
           ProfileScreen(),
-          Text('Main Navigation'),
-          TextButton(
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.all(16.0),
-              textStyle: const TextStyle(fontSize: 20),
+
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Main Navigation'),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(16.0),
+                    textStyle: theme.textTheme.subtitle2,
+                  ),
+                  onPressed: () {},
+                  child: const Text('Dashboard'),
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(16.0),
+                    textStyle: theme.textTheme.subtitle2,
+                  ),
+                  onPressed: () {},
+                  child: const Text('Category'),
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(16.0),
+                    textStyle: theme.textTheme.subtitle2,
+                  ),
+                  onPressed: () {},
+                  child: const Text('Chat'),
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(16.0),
+                    textStyle: theme.textTheme.subtitle2,
+                  ),
+                  onPressed: () {},
+                  child: const Text('Send Notification'),
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(16.0),
+                    textStyle: theme.textTheme.subtitle2,
+                  ),
+                  onPressed: () {},
+                  child: const Text('Reviews'),
+
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(16.0),
+                    textStyle: theme.textTheme.subtitle2,
+                  ),
+                  onPressed: () {},
+                  child: const Text('Settings'),
+
+                ),
+              ],
             ),
-            onPressed: () {},
-            child: const Text('Gradient'),
-          ),
-          TextButton(
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.all(16.0),
-              textStyle: const TextStyle(fontSize: 20),
-            ),
-            onPressed: () {},
-            child: const Text('Gradient'),
-          ),
-          TextButton(
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.all(16.0),
-              textStyle: const TextStyle(fontSize: 20),
-            ),
-            onPressed: () {},
-            child: const Text('Gradient'),
-          ),
-          TextButton(
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.all(16.0),
-              textStyle: const TextStyle(fontSize: 20),
-            ),
-            onPressed: () {},
-            child: const Text('Gradient'),
           ),
         ],
       ),
