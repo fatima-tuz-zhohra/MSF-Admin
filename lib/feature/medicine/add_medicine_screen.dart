@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project_template/common/constants.dart';
+import 'package:flutter_project_template/common/data/services/database.dart';
 import 'package:flutter_project_template/util/ui_utils.dart';
 import 'package:flutter_project_template/widget/add_input_field.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
@@ -91,6 +93,11 @@ class AddMedicineScreen extends StatelessWidget {
               validator: (value) {
                 if (value == null || value.isEmpty)
                   return 'Please enter medicine price';
+
+                final isValid =
+                    RegExp(AppConstants.priceValidation).hasMatch(value!);
+
+                if (!isValid) return 'Please enter valid medicine price';
                 return null;
               },
             ),
@@ -117,6 +124,10 @@ class AddMedicineScreen extends StatelessWidget {
                 press: () async {
                   if (_formKey.currentState?.validate() == true) {
                     await _saveNewMedicine();
+                    showSnackbar(
+                      context,
+                      Text('New Medicine Added Successfully'),
+                    );
                     Navigator.pop(context);
                   } else {
                     showSnackbar(
@@ -137,7 +148,8 @@ class AddMedicineScreen extends StatelessWidget {
     final name = medicineNameController.text;
     final generic = medicineGenericController.text;
     final company = medicineCompanyNameController.text;
-    final price = medicinePriceController.text;
+    final price = double.tryParse(medicinePriceController.text) ?? 0;
     final description = medicineDescriptionController.text;
+    return MedicineService().addNew(name, generic, company, price, description);
   }
 }
