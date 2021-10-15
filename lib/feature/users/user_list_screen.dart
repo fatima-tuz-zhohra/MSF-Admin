@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_template/common/data/model/user.dart';
 import 'package:flutter_project_template/util/color_tag.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
+import 'package:flutter_project_template/widget/top_bar.dart';
 
 class UserListScreen extends StatelessWidget {
   static const ROUTE = "/user-list";
@@ -14,59 +15,51 @@ class UserListScreen extends StatelessWidget {
     final List<User> users =
         ModalRoute.of(context)!.settings.arguments as List<User>;
     return Scaffold(
+      appBar: TopBar(title: 'User List',),
       body: MsfAdminBasePageLayout(
         child: Container(
           padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(10)),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Recent Users',
-                style: Theme.of(context).textTheme.subtitle1,
-              ),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: SingleChildScrollView(
-                    //scrollDirection: Axis.horizontal,
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: DataTable(
-                        horizontalMargin: 0,
-                        columnSpacing: 16,
-                        columns: [
-                          DataColumn(
-                            label: Text('Name'),
-                          ),
-                          DataColumn(
-                            label: Text('Role'),
-                          ),
-                          DataColumn(
-                            label: Text('E-mail'),
-                          ),
-                          DataColumn(
-                            label: Text('Phone No'),
-                          ),
-                          DataColumn(
-                            label: Text('Registration Date'),
-                          ),
-                          DataColumn(
-                            label: Text('Operation'),
-                          ),
-                        ],
-                        rows: List.generate(
-                          users.length,
-                          (index) => usersDataRow(users[index], context),
-                        ),
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: SingleChildScrollView(
+                //scrollDirection: Axis.horizontal,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: DataTable(
+                    horizontalMargin: 0,
+                    columnSpacing: 16,
+                    columns: [
+                      DataColumn(
+                        label: Text('Name'),
                       ),
+                      DataColumn(
+                        label: Text('Role'),
+                      ),
+                      DataColumn(
+                        label: Text('E-mail'),
+                      ),
+                      DataColumn(
+                        label: Text('Phone No'),
+                      ),
+                      DataColumn(
+                        label: Text('Registration Date'),
+                      ),
+                      DataColumn(
+                        label: Text('Operation'),
+                      ),
+                    ],
+                    rows: List.generate(
+                      users.length,
+                      (index) => usersDataRow(users[index], context),
                     ),
                   ),
                 ),
               ),
-            ],
+            ),
           ),
         ),
       ),
