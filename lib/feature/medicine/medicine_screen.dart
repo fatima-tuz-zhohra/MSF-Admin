@@ -1,8 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:colorize_text_avatar/colorize_text_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_template/common/data/model/items/medicine_item.dart';
-import 'package:flutter_project_template/common/data/services/database.dart';
+import 'package:flutter_project_template/common/data/services/medicine_service.dart';
 import 'package:flutter_project_template/util/color_tag.dart';
 import 'package:flutter_project_template/util/ui_utils.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
@@ -23,15 +22,15 @@ class _MedicineScreenState extends State<MedicineScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, AddMedicineScreen.ROUTE);
         },
-        label: Text('Add New Medicine'),
+        child: Icon(Icons.add),
       ),
       appBar: TopBar(title: 'Medicine List'),
       body: MsfAdminBasePageLayout(
-        child: StreamBuilder<QuerySnapshot<Object?>>(
+        child: StreamBuilder<List<MedicineItem>>(
           stream: MedicineService().getMedicines(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -42,20 +41,7 @@ class _MedicineScreenState extends State<MedicineScreen> {
               );
             } else if (snapshot.hasData) {
               final data = snapshot.requireData;
-              final List<MedicineItem> medicines = [];
-
-              data.docs.forEach((element) {
-                final dbItem = element.data()! as Map<String, dynamic>;
-                final medicine = MedicineItem(
-                    element.id,
-                    dbItem['name'],
-                    dbItem['generic'],
-                    dbItem['companyName'],
-                    double.parse("${dbItem['price']}"),
-                    dbItem['description']);
-                medicines.add(medicine);
-              });
-              return MedicineListContent(medicines: medicines);
+              return MedicineListContent(medicines: data);
             } else {
               return Container();
             }

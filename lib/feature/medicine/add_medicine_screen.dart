@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_template/common/constants.dart';
 import 'package:flutter_project_template/common/data/model/items/medicine_item.dart';
-import 'package:flutter_project_template/common/data/services/database.dart';
+import 'package:flutter_project_template/common/data/services/medicine_service.dart';
 import 'package:flutter_project_template/util/ui_utils.dart';
 import 'package:flutter_project_template/widget/add_input_field.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
@@ -21,11 +21,13 @@ class AddMedicineScreen extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
+  MedicineItem? _medicineItem;
+
   @override
   Widget build(BuildContext context) {
-    final medicineItem =
-        ModalRoute.of(context)?.settings.arguments as MedicineItem?;
-    if (medicineItem != null) _prefillInputs(medicineItem);
+    _medicineItem = ModalRoute.of(context)?.settings.arguments as MedicineItem?;
+
+    if (_medicineItem != null) _prefillInputs(_medicineItem!);
 
     return Scaffold(
       appBar: TopBar(
@@ -128,13 +130,17 @@ class AddMedicineScreen extends StatelessWidget {
               SizedBox(
                 width: 300,
                 child: RoundedButton(
-                  text: 'Save new medicine',
+                  text: _medicineItem != null
+                      ? 'Edit Medicine'
+                      : 'Save new medicine',
                   press: () async {
                     if (_formKey.currentState?.validate() == true) {
                       await _saveNewMedicine();
                       showSnackbar(
                         context,
-                        Text('Medicine Added Successfully'),
+                        Text(_medicineItem != null
+                            ? 'Medicine Updated Successfully'
+                            : 'Medicine Added Successfully'),
                       );
                       Navigator.pop(context);
                     } else {
@@ -159,7 +165,21 @@ class AddMedicineScreen extends StatelessWidget {
     final company = medicineCompanyNameController.text;
     final price = double.tryParse(medicinePriceController.text) ?? 0;
     final description = medicineDescriptionController.text;
-    return MedicineService().addNew(name, generic, company, price, description);
+    if (_medicineItem != null) {
+      //editing
+      return MedicineService().update(
+        _medicineItem!.id!,
+        name,
+        generic,
+        company,
+        price,
+        description,
+      );
+    } else {
+      //new adding
+      return MedicineService()
+          .addNew(name, generic, company, price, description);
+    }
   }
 
   void _prefillInputs(MedicineItem medicineItem) {

@@ -45,37 +45,6 @@ class DatabaseService {
   }
 }
 
-class MedicineService {
-  MedicineService();
-
-  final CollectionReference medicineCollection =
-      FirebaseFirestore.instance.collection('Medicine');
-
-  Stream<QuerySnapshot<Object?>> getMedicines() {
-    final user = FirebaseAuth.instance.currentUser;
-    print('User id: ${user?.uid}');
-
-    return medicineCollection.snapshots();
-  }
-
-  Future<void> delete(MedicineItem medicineItem) async {
-    await medicineCollection.doc(medicineItem.id).delete().catchError(() {});
-  }
-
-  Future<void> addNew(
-    String name,
-    String generic,
-    String companyName,
-    double price,
-    String description,
-  ) async {
-    final doc = medicineCollection.doc();
-    final medicineItem =
-        MedicineItem(doc.id, name, generic, companyName, price, description);
-    await doc.set(medicineItem.toMap());
-  }
-}
-
 class HospitalService {
   HospitalService();
 
@@ -108,20 +77,18 @@ class HospitalService {
   }
 
   Future<void> addNew(
-      String name,
-      String address,
-      String type,
-      String phoneNo,
-      double latitude,
-      double longitude,
-
-      ) async {
+    String name,
+    String address,
+    String type,
+    String phoneNo,
+    double latitude,
+    double longitude,
+  ) async {
     final doc = hospitalCollection.doc();
     final hospitalItem =
-    HospitalItem(doc.id, name, address, type, phoneNo, latitude, longitude );
+        HospitalItem(doc.id, name, address, type, phoneNo, latitude, longitude);
     await doc.set(hospitalItem.toMap());
   }
-
 }
 
 class OxygenService {
@@ -149,21 +116,21 @@ class OxygenService {
       return OxygenSuppliers;
     });
   }
+
   Future<void> delete(OxygenItem oxygenItem) async {
     await oxygenCollection.doc(oxygenItem.id).delete().catchError(() {});
   }
 
   Future<void> addNew(
-      String name,
-      String address,
-      String phoneNo,
-      double latitude,
-      double longitude,
-
-      ) async {
+    String name,
+    String address,
+    String phoneNo,
+    double latitude,
+    double longitude,
+  ) async {
     final doc = oxygenCollection.doc();
     final oxygenItem =
-    OxygenItem(doc.id, name, address, phoneNo, latitude, longitude );
+        OxygenItem(doc.id, name, address, phoneNo, latitude, longitude);
     await doc.set(oxygenItem.toMap());
   }
 }
@@ -172,7 +139,7 @@ class BloodDonorService {
   BloodDonorService();
 
   final CollectionReference bloodDonorCollection =
-  FirebaseFirestore.instance.collection('Blood_Donors');
+      FirebaseFirestore.instance.collection('Blood_Donors');
 
   Stream<List<BloodDonorItem>> getBloodDonors() {
     final stream = bloodDonorCollection.snapshots();
@@ -192,20 +159,23 @@ class BloodDonorService {
       return bloodDonors;
     });
   }
+
   Future<void> delete(BloodDonorItem bloodDonorItem) async {
-    await bloodDonorCollection.doc(bloodDonorItem.id).delete().catchError(() {});
+    await bloodDonorCollection
+        .doc(bloodDonorItem.id)
+        .delete()
+        .catchError(() {});
   }
 
   Future<void> addNew(
-      String name,
-      String address,
-      String phoneNo,
-      String bloodGroup,
-
-      ) async {
+    String name,
+    String address,
+    String phoneNo,
+    String bloodGroup,
+  ) async {
     final doc = bloodDonorCollection.doc();
     final bloodDonorItem =
-    BloodDonorItem(doc.id, name, address, phoneNo, bloodGroup );
+        BloodDonorItem(doc.id, name, address, phoneNo, bloodGroup);
     await doc.set(bloodDonorItem.toMap());
   }
 }
