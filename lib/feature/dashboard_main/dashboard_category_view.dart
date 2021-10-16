@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_template/feature/blood/blood_bank_screen.dart';
+import 'package:flutter_project_template/feature/blood/blood_donor_screen.dart';
 import 'package:flutter_project_template/feature/doctor/doctor_screen.dart';
 import 'package:flutter_project_template/feature/hospital/hospital_screen.dart';
 import 'package:flutter_project_template/feature/medicine/medicine_screen.dart';
@@ -49,12 +49,12 @@ class HomeCategoryView extends StatelessWidget {
             },
           ),
           GridItem(
-            title: 'Bloods',
+            title: 'Blood Donors',
             image: 'assets/images/blood_logo.png',
             onTap: () {
               Navigator.pushNamed(
                   context,
-                  BloodBankScreen.ROUTE
+                  BloodDonorScreen.ROUTE
               );
             },
           ),
