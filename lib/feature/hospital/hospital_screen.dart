@@ -2,6 +2,7 @@ import 'package:colorize_text_avatar/colorize_text_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_template/common/data/model/items/hospital_item.dart';
 import 'package:flutter_project_template/common/data/services/database.dart';
+import 'package:flutter_project_template/util/ui_utils.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
 import 'package:flutter_project_template/widget/top_bar.dart';
 
@@ -168,7 +169,13 @@ class _HospitalListContentState extends State<HospitalListContent> {
                 child: Text('Edit',
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.primary)),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    AddHospitalScreen.ROUTE,
+                    arguments: hospitalInfo,
+                  );
+                },
               ),
               SizedBox(
                 width: 6,
@@ -229,7 +236,15 @@ class _HospitalListContentState extends State<HospitalListContent> {
                                               primary: Theme.of(context)
                                                   .colorScheme
                                                   .error),
-                                          onPressed: () {},
+                                          onPressed: () async{
+                                            await HospitalService()
+                                                .delete(hospitalInfo);
+                                            showSnackbar(
+                                              context,
+                                              Text('Deleted Successfully'),
+                                            );
+                                            Navigator.pop(context);
+                                          },
                                           label: Text("Delete"))
                                     ],
                                   )

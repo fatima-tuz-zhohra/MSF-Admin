@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project_template/common/data/model/items/hospital_item.dart';
 import 'package:flutter_project_template/common/data/services/database.dart';
 import 'package:flutter_project_template/util/ui_utils.dart';
 import 'package:flutter_project_template/widget/add_input_field.dart';
@@ -21,6 +22,10 @@ class AddHospitalScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hospitalItem =
+    ModalRoute.of(context)?.settings.arguments as HospitalItem?;
+    if (hospitalItem != null) _prefillInputs(hospitalItem);
+
     return Scaffold(
       appBar: TopBar(
         title: 'Add New Hospital',
@@ -135,7 +140,7 @@ class AddHospitalScreen extends StatelessWidget {
                       await _saveNewHospital();
                       showSnackbar(
                         context,
-                        Text('New Hospital Added Successfully'),
+                        Text('Hospital Added Successfully'),
                       );
                       Navigator.pop(context);
                     } else {
@@ -164,6 +169,16 @@ class AddHospitalScreen extends StatelessWidget {
     final longitude = double.tryParse(longitudeController.text) ?? 0;
 
     return HospitalService().addNew( name, address, type, phoneNo, latitude, longitude );
+  }
+
+  void _prefillInputs(HospitalItem hospitalItem) {
+    hospitalNameController.text = hospitalItem.name ?? '';
+    hospitalAddressController.text = hospitalItem.address ?? '';
+    hospitalTypeController.text = hospitalItem.type ?? '';
+    phoneNoController.text = hospitalItem.phoneNo ?? '';
+
+    latitudeController.text = hospitalItem.latitude?.toString() ?? '0';
+    longitudeController.text = hospitalItem.longitude?.toString() ?? '0';
   }
 
 }
