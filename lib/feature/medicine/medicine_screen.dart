@@ -12,7 +12,7 @@ import 'add_medicine_screen.dart';
 class MedicineScreen extends StatefulWidget {
   const MedicineScreen({Key? key}) : super(key: key);
 
-  static const ROUTE = "/medicines";
+  static const ROUTE = "/medicines-list";
 
   @override
   _MedicineScreenState createState() => _MedicineScreenState();
@@ -29,6 +29,7 @@ class _MedicineScreenState extends State<MedicineScreen> {
         label: Text('Add New Medicine'),
       ),
       appBar: TopBar(title: 'Medicine List'),
+
       body: MsfAdminBasePageLayout(
         child: StreamBuilder<QuerySnapshot<Object?>>(
           stream: MedicineService().getMedicines(),

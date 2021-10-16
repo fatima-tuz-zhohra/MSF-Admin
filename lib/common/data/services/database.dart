@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_project_template/common/data/model/items/hospital_item.dart';
 import 'package:flutter_project_template/common/data/model/items/medicine_item.dart';
+import 'package:flutter_project_template/common/data/model/items/oxygen_item.dart';
 import 'package:flutter_project_template/common/data/model/profile_data.dart';
 
 class DatabaseService {
@@ -87,18 +88,39 @@ class HospitalService {
       updatedCollection.docs.forEach((element) {
         final dbItem = element.data()! as Map<String, dynamic>;
         final hospital = HospitalItem(
+          dbItem['id'],
           dbItem['name'],
           dbItem['address'],
-          dbItem['latitude'],
-          dbItem['longitude'],
           dbItem['type'],
           dbItem['phoneNo'],
+          dbItem['latitude'],
+          dbItem['longitude'],
         );
         hospitals.add(hospital);
       });
       return hospitals;
     });
   }
+
+  Future<void> delete(HospitalItem medicineItem) async {
+    await hospitalCollection.doc(medicineItem.id).delete().catchError(() {});
+  }
+
+  Future<void> addNew(
+      String name,
+      String address,
+      String type,
+      String phoneNo,
+      double latitude,
+      double longitude,
+
+      ) async {
+    final doc = hospitalCollection.doc();
+    final hospitalItem =
+    HospitalItem(doc.id, name, address, type, phoneNo, latitude, longitude );
+    await doc.set(hospitalItem.toMap());
+  }
+
 }
 
 class OxygenService {
@@ -107,7 +129,40 @@ class OxygenService {
   final CollectionReference oxygenCollection =
       FirebaseFirestore.instance.collection('Oxygen_Supplier');
 
-  Stream<QuerySnapshot<Object?>> getOxygen() {
-    return oxygenCollection.snapshots();
+  Stream<List<OxygenItem>> getOxygen() {
+    final stream = oxygenCollection.snapshots();
+    return stream.map((updatedCollection) {
+      final List<OxygenItem> OxygenSuppliers = [];
+      updatedCollection.docs.forEach((element) {
+        final dbItem = element.data()! as Map<String, dynamic>;
+        final oxygen = OxygenItem(
+          dbItem['id'],
+          dbItem['name'],
+          dbItem['address'],
+          dbItem['phoneNo'],
+          dbItem['latitude'],
+          dbItem['longitude'],
+        );
+        OxygenSuppliers.add(oxygen);
+      });
+      return OxygenSuppliers;
+    });
+  }
+  Future<void> delete(OxygenItem oxygenItem) async {
+    await oxygenCollection.doc(oxygenItem.id).delete().catchError(() {});
+  }
+
+  Future<void> addNew(
+      String name,
+      String address,
+      String phoneNo,
+      double latitude,
+      double longitude,
+
+      ) async {
+    final doc = oxygenCollection.doc();
+    final oxygenItem =
+    OxygenItem(doc.id, name, address, phoneNo, latitude, longitude );
+    await doc.set(oxygenItem.toMap());
   }
 }
