@@ -29,7 +29,6 @@ class _MedicineScreenState extends State<MedicineScreen> {
         label: Text('Add New Medicine'),
       ),
       appBar: TopBar(title: 'Medicine List'),
-
       body: MsfAdminBasePageLayout(
         child: StreamBuilder<QuerySnapshot<Object?>>(
           stream: MedicineService().getMedicines(),
@@ -78,7 +77,6 @@ class MedicineListContent extends StatefulWidget {
 class _MedicineListContentState extends State<MedicineListContent> {
   @override
   Widget build(BuildContext context) {
-
     final theme = Theme.of(context);
 
     return Container(
@@ -118,7 +116,7 @@ class _MedicineListContentState extends State<MedicineListContent> {
                 ],
                 rows: List.generate(
                   widget.medicines.length,
-                      (index) => medicinesDataRow(widget.medicines[index], context),
+                  (index) => medicinesDataRow(widget.medicines[index], context),
                 ),
               ),
             ),
@@ -162,7 +160,7 @@ class _MedicineListContentState extends State<MedicineListContent> {
               color: getRoleColor(medicineInfo.generic).withOpacity(.2),
               border: Border.all(color: getRoleColor(medicineInfo.generic)),
               borderRadius: BorderRadius.all(Radius.circular(5.0) //
-              ),
+                  ),
             ),
             child: Text(medicineInfo.generic!),
           ),
@@ -177,7 +175,13 @@ class _MedicineListContentState extends State<MedicineListContent> {
                 child: Text('Edit',
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.primary)),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    AddMedicineScreen.ROUTE,
+                    arguments: medicineInfo,
+                  );
+                },
               ),
               SizedBox(
                 width: 6,
@@ -185,7 +189,7 @@ class _MedicineListContentState extends State<MedicineListContent> {
               TextButton(
                 child: Text("Delete",
                     style:
-                    TextStyle(color: Theme.of(context).colorScheme.error)),
+                        TextStyle(color: Theme.of(context).colorScheme.error)),
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -197,7 +201,7 @@ class _MedicineListContentState extends State<MedicineListContent> {
                                   Icon(Icons.warning_outlined,
                                       size: 36,
                                       color:
-                                      Theme.of(context).colorScheme.error),
+                                          Theme.of(context).colorScheme.error),
                                   SizedBox(height: 20),
                                   Text("Confirm Deletion"),
                                 ],
@@ -238,7 +242,10 @@ class _MedicineListContentState extends State<MedicineListContent> {
                                               primary: Theme.of(context)
                                                   .colorScheme
                                                   .error),
-                                          onPressed: () {},
+                                          onPressed: () async {
+                                            await MedicineService()
+                                                .delete(medicineInfo);
+                                          },
                                           label: Text("Delete"))
                                     ],
                                   )

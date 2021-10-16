@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_template/common/constants.dart';
+import 'package:flutter_project_template/common/data/model/items/medicine_item.dart';
 import 'package:flutter_project_template/common/data/services/database.dart';
 import 'package:flutter_project_template/util/ui_utils.dart';
 import 'package:flutter_project_template/widget/add_input_field.dart';
@@ -22,6 +23,10 @@ class AddMedicineScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final medicineItem =
+        ModalRoute.of(context)?.settings.arguments as MedicineItem?;
+    if (medicineItem != null) _prefillInputs(medicineItem);
+
     return Scaffold(
       appBar: TopBar(
         title: 'Add New Medicine Item',
@@ -45,7 +50,6 @@ class AddMedicineScreen extends StatelessWidget {
   Widget _buildBody(BuildContext context) {
     return Card(
       margin: EdgeInsets.all(16),
-
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -156,5 +160,13 @@ class AddMedicineScreen extends StatelessWidget {
     final price = double.tryParse(medicinePriceController.text) ?? 0;
     final description = medicineDescriptionController.text;
     return MedicineService().addNew(name, generic, company, price, description);
+  }
+
+  void _prefillInputs(MedicineItem medicineItem) {
+    medicineNameController.text = medicineItem.name ?? '';
+    medicineGenericController.text = medicineItem.generic ?? '';
+    medicineCompanyNameController.text = medicineItem.companyName ?? '';
+    medicinePriceController.text = medicineItem.price?.toString() ?? '0';
+    medicineDescriptionController.text = medicineItem.description ?? '';
   }
 }
