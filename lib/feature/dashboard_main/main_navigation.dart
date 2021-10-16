@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_template/feature/dashboard_main/profile_screen.dart';
-import 'package:flutter_project_template/widget/expanded_button_list.dart';
 import 'package:flutter_project_template/widget/top_bar.dart';
 
 class MainNavigation extends StatelessWidget {
@@ -30,18 +29,45 @@ class MainNavigation extends StatelessWidget {
                   onPressed: () {},
                   child: const Text('Dashboard'),
                 ),
-                 SizedBox(
-                   height: 100,
-                     child: ExpandedButtonList()),
-
-                /*TextButton(
+                TextButton(
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.all(16.0),
                     textStyle: theme.textTheme.subtitle2,
                   ),
                   onPressed: () {},
                   child: const Text('Category'),
-                ),*/
+                ),
+                 SizedBox(
+                   //height: 100,
+                     child: Column(
+                       crossAxisAlignment: CrossAxisAlignment.end,
+                       children: [
+                         TextButton(
+                           style: TextButton.styleFrom(
+                             padding: const EdgeInsets.all(16.0),
+                             textStyle: theme.textTheme.bodyText2,
+                           ),
+                           onPressed: () {},
+                           child: const Text('Medicine'),
+                         ),
+                         TextButton(
+                           style: TextButton.styleFrom(
+                             padding: const EdgeInsets.all(16.0),
+                             textStyle: theme.textTheme.bodyText2,
+                           ),
+                           onPressed: () {},
+                           child: const Text('Blood'),
+                         ),
+                         TextButton(
+                           style: TextButton.styleFrom(
+                             padding: const EdgeInsets.all(16.0),
+                             textStyle: theme.textTheme.bodyText2,
+                           ),
+                           onPressed: () {},
+                           child: const Text('Doctor'),
+                         ),
+                       ],
+                     )),
                 TextButton(
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.all(16.0),

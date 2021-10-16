@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_template/common/data/model/items/medicine_item.dart';
 import 'package:flutter_project_template/common/data/services/database.dart';
 import 'package:flutter_project_template/util/color_tag.dart';
+import 'package:flutter_project_template/util/ui_utils.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
 import 'package:flutter_project_template/widget/top_bar.dart';
 
@@ -245,6 +246,11 @@ class _MedicineListContentState extends State<MedicineListContent> {
                                           onPressed: () async {
                                             await MedicineService()
                                                 .delete(medicineInfo);
+                                            showSnackbar(
+                                              context,
+                                              Text('Deleted Successfully'),
+                                            );
+                                            Navigator.pop(context);
                                           },
                                           label: Text("Delete"))
                                     ],

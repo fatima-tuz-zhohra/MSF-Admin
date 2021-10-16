@@ -134,7 +134,7 @@ class AddMedicineScreen extends StatelessWidget {
                       await _saveNewMedicine();
                       showSnackbar(
                         context,
-                        Text('New Medicine Added Successfully'),
+                        Text('Medicine Added Successfully'),
                       );
                       Navigator.pop(context);
                     } else {
