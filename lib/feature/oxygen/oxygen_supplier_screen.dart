@@ -2,8 +2,9 @@
 import 'package:colorize_text_avatar/colorize_text_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_template/common/data/model/items/oxygen_item.dart';
-import 'package:flutter_project_template/common/data/services/database.dart';
+import 'package:flutter_project_template/common/data/services/oxygenSupplier_service.dart';
 import 'package:flutter_project_template/feature/oxygen/add_oxygenSupplier_screen.dart';
+import 'package:flutter_project_template/util/ui_utils.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
 import 'package:flutter_project_template/widget/top_bar.dart';
 
@@ -149,7 +150,13 @@ class _OxygenSupplerListContentState extends State<OxygenSupplerListContent> {
                 child: Text('Edit',
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.primary)),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    AddOxygenSupplierScreen.ROUTE,
+                    arguments: oxygenSuppliersInfo,
+                  );
+                },
               ),
               SizedBox(
                 width: 6,
@@ -210,7 +217,15 @@ class _OxygenSupplerListContentState extends State<OxygenSupplerListContent> {
                                               primary: Theme.of(context)
                                                   .colorScheme
                                                   .error),
-                                          onPressed: () {},
+                                          onPressed: () async{
+                                            await OxygenService()
+                                                .delete(oxygenSuppliersInfo);
+                                            showSnackbar(
+                                              context,
+                                              Text('Deleted Successfully'),
+                                            );
+                                            Navigator.pop(context);
+                                          },
                                           label: Text("Delete"))
                                     ],
                                   )

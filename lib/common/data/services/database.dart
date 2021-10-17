@@ -46,50 +46,6 @@ class DatabaseService {
 }
 
 
-class OxygenService {
-  OxygenService();
-
-  final CollectionReference oxygenCollection =
-      FirebaseFirestore.instance.collection('Oxygen_Supplier');
-
-  Stream<List<OxygenItem>> getOxygen() {
-    final stream = oxygenCollection.snapshots();
-    return stream.map((updatedCollection) {
-      final List<OxygenItem> OxygenSuppliers = [];
-      updatedCollection.docs.forEach((element) {
-        final dbItem = element.data()! as Map<String, dynamic>;
-        final oxygen = OxygenItem(
-          dbItem['id'],
-          dbItem['name'],
-          dbItem['address'],
-          dbItem['phoneNo'],
-          dbItem['latitude'],
-          dbItem['longitude'],
-        );
-        OxygenSuppliers.add(oxygen);
-      });
-      return OxygenSuppliers;
-    });
-  }
-
-  Future<void> delete(OxygenItem oxygenItem) async {
-    await oxygenCollection.doc(oxygenItem.id).delete().catchError(() {});
-  }
-
-  Future<void> addNew(
-    String name,
-    String address,
-    String phoneNo,
-    double latitude,
-    double longitude,
-  ) async {
-    final doc = oxygenCollection.doc();
-    final oxygenItem =
-        OxygenItem(doc.id, name, address, phoneNo, latitude, longitude);
-    await doc.set(oxygenItem.toMap());
-  }
-}
-
 class BloodDonorService {
   BloodDonorService();
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_template/common/data/services/database.dart';
+import 'package:flutter_project_template/common/data/model/items/oxygen_item.dart';
+import 'package:flutter_project_template/common/data/services/oxygenSupplier_service.dart';
 import 'package:flutter_project_template/util/ui_utils.dart';
 import 'package:flutter_project_template/widget/add_input_field.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
@@ -18,12 +19,22 @@ class AddOxygenSupplierScreen extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
+  OxygenItem? _oxygenItem;
+
   @override
   Widget build(BuildContext context) {
+
+    _oxygenItem =
+    ModalRoute.of(context)?.settings.arguments as OxygenItem?;
+    if (_oxygenItem != null) _prefillInputs(_oxygenItem!);
+
     return Scaffold(
+
       appBar: TopBar(
-        title: 'Add New Oxygen Supplier',
+        title: _oxygenItem != null ? 'Update Oxygen Supplier'
+            :'Add New Oxygen Supplier',
       ),
+
       body: MsfAdminBasePageLayout(
         child: CustomScrollView(
           slivers: [
@@ -116,13 +127,18 @@ class AddOxygenSupplierScreen extends StatelessWidget {
               SizedBox(
                 width: 300,
                 child: RoundedButton(
-                  text: 'Save new supplier',
+                  text: _oxygenItem != null
+                      ?'Update supplier'
+                      : 'Save new supplier',
                   press: () async {
                     if (_formKey.currentState?.validate() == true) {
                       await _saveNewHospital();
                       showSnackbar(
                         context,
-                        Text('New Supplier Added Successfully'),
+                        Text(
+                            _oxygenItem != null
+                            ? 'Update Supplier Successfully'
+                            :'New Supplier Added Successfully'),
                       );
                       Navigator.pop(context);
                     } else {
@@ -149,7 +165,24 @@ class AddOxygenSupplierScreen extends StatelessWidget {
     final latitude = double.tryParse(latitudeController.text) ?? 0;
     final longitude = double.tryParse(longitudeController.text) ?? 0;
 
-    return OxygenService().addNew( name, address, phoneNo, latitude, longitude );
+    if (_oxygenItem != null) {
+      //editing
+      return OxygenService().update( _oxygenItem!.id! ,name, address, phoneNo, latitude, longitude );
+    } else {
+      //new adding
+      return OxygenService().addNew( name, address, phoneNo, latitude, longitude );
+    }
+
+
+  }
+
+  void _prefillInputs(OxygenItem oxygenItem) {
+    supplierNameController.text = oxygenItem.name ?? '';
+    supplierAddressController.text = oxygenItem.address ?? '';
+    phoneNoController.text = oxygenItem.phoneNo ?? '';
+
+    latitudeController.text = oxygenItem.latitude?.toString() ?? '0';
+    longitudeController.text = oxygenItem.longitude?.toString() ?? '0';
   }
 
 }
