@@ -9,7 +9,8 @@ import 'package:flutter_project_template/widget/top_bar.dart';
 
 class AddHospitalScreen extends StatelessWidget {
   static const ROUTE = "/add-new-hospital";
-   AddHospitalScreen({Key? key}) : super(key: key);
+
+  AddHospitalScreen({Key? key}) : super(key: key);
 
   final hospitalNameController = TextEditingController();
   final hospitalAddressController = TextEditingController();
@@ -22,16 +23,16 @@ class AddHospitalScreen extends StatelessWidget {
 
   HospitalItem? _hospitalItem;
 
-
   @override
   Widget build(BuildContext context) {
-    _hospitalItem =
-    ModalRoute.of(context)?.settings.arguments as HospitalItem?;
+    _hospitalItem = ModalRoute.of(context)?.settings.arguments as HospitalItem?;
     if (_hospitalItem != null) _prefillInputs(_hospitalItem!);
 
     return Scaffold(
       appBar: TopBar(
-        title: 'Add New Hospital',
+        title: _hospitalItem != null
+            ? 'Update Hospital'
+            : 'Add New Hospital',
       ),
       body: MsfAdminBasePageLayout(
         child: CustomScrollView(
@@ -52,7 +53,6 @@ class AddHospitalScreen extends StatelessWidget {
   Widget _buildBody(BuildContext context) {
     return Card(
       margin: EdgeInsets.all(16),
-
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -145,9 +145,9 @@ class AddHospitalScreen extends StatelessWidget {
                       await _saveNewHospital();
                       showSnackbar(
                         context,
-                        Text( _hospitalItem != null
-                        ? 'Update Successfully'
-                        :'Hospital Added Successfully'),
+                        Text(_hospitalItem != null
+                            ? 'Update Successfully'
+                            : 'Hospital Added Successfully'),
                       );
                       Navigator.pop(context);
                     } else {
@@ -177,12 +177,13 @@ class AddHospitalScreen extends StatelessWidget {
 
     if (_hospitalItem != null) {
       //editing
-      return HospitalService().update( _hospitalItem!.id! ,name, address, type, phoneNo, latitude, longitude );
+      return HospitalService().update(_hospitalItem!.id!, name, address, type,
+          phoneNo, latitude, longitude);
     } else {
       //new adding
-      return HospitalService().addNew( name, address, type, phoneNo, latitude, longitude );
+      return HospitalService()
+          .addNew(name, address, type, phoneNo, latitude, longitude);
     }
-
   }
 
   void _prefillInputs(HospitalItem hospitalItem) {
@@ -194,5 +195,4 @@ class AddHospitalScreen extends StatelessWidget {
     latitudeController.text = hospitalItem.latitude?.toString() ?? '0';
     longitudeController.text = hospitalItem.longitude?.toString() ?? '0';
   }
-
 }

@@ -31,7 +31,9 @@ class AddMedicineScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: TopBar(
-        title: 'Add New Medicine Item',
+        title: _medicineItem != null
+            ? 'Update Medicine Item'
+            : 'Add New Medicine Item',
       ),
       body: MsfAdminBasePageLayout(
         child: CustomScrollView(
