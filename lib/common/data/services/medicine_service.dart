@@ -8,7 +8,8 @@ class MedicineService {
       FirebaseFirestore.instance.collection('Medicine');
 
   Stream<List<MedicineItem>> getMedicines() {
-    final stream = medicineCollection.snapshots();
+    final stream =
+        medicineCollection.orderBy('name', descending: false).snapshots();
     return stream.map((updatedCollection) {
       final List<MedicineItem> medicines = [];
       updatedCollection.docs.forEach((element) {
