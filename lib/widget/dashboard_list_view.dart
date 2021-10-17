@@ -30,7 +30,6 @@ class DashboardListView extends StatelessWidget {
         elevation: 4,
         child: Container(
           width: 240,
-          //padding: EdgeInsets.all(8),
           child: Stack(
             children: [
               Positioned(top: 10, right: 10, child: Image.asset(image),

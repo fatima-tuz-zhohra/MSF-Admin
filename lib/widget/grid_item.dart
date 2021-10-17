@@ -17,6 +17,7 @@ class GridItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Card(
+        color: Colors.white38,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16.0),
@@ -28,7 +29,7 @@ class GridItem extends StatelessWidget {
         margin: EdgeInsets.all(8),
         elevation: 4,
         child: Container(
-          width: 110,
+          width: 200,
           padding: EdgeInsets.all(8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

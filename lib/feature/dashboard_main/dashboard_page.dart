@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_project_template/widget/expanded_menu_list.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
 import 'package:flutter_project_template/widget/top_bar.dart';
 
@@ -24,9 +23,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       drawer: Drawer(child: MainNavigation()),
       body: MsfAdminBasePageLayout(
-        child: CustomScrollView(
-          slivers: [
-            SliverFillRemaining(
+        child:
+            SingleChildScrollView(
               child: Column(
                 children: [
                   TopBar(title: 'Medical Support Finder',
@@ -52,14 +50,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   DashboardPanelScreen(),
                   SizedBox(height: 16),
                   HomeCategoryView(),
-                  SizedBox(height: 16),
-                  Expanded(child: ExpandedMenuList()),
                 ],
               ),
             ),
-          ],
         ),
-      ),
     );
   }
 }

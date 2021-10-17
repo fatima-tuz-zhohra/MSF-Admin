@@ -22,10 +22,12 @@ class DashboardPanelScreen extends StatelessWidget {
               stream: UsersService().getAllUsers(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Container(
-                    height: 44,
-                    width: 44,
-                    child: CircularProgressIndicator(),
+                  return Center(
+                    child: Container(
+                      height: 44,
+                      width: 44,
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 } else if (snapshot.hasData) {
                   final data = snapshot.requireData;
