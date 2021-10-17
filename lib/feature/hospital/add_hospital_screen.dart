@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_template/common/data/model/items/hospital_item.dart';
-import 'package:flutter_project_template/common/data/services/database.dart';
+import 'package:flutter_project_template/common/data/services/hospital_service.dart';
 import 'package:flutter_project_template/util/ui_utils.dart';
 import 'package:flutter_project_template/widget/add_input_field.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
@@ -20,11 +20,14 @@ class AddHospitalScreen extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
+  HospitalItem? _hospitalItem;
+
+
   @override
   Widget build(BuildContext context) {
-    final hospitalItem =
+    _hospitalItem =
     ModalRoute.of(context)?.settings.arguments as HospitalItem?;
-    if (hospitalItem != null) _prefillInputs(hospitalItem);
+    if (_hospitalItem != null) _prefillInputs(_hospitalItem!);
 
     return Scaffold(
       appBar: TopBar(
@@ -134,13 +137,17 @@ class AddHospitalScreen extends StatelessWidget {
               SizedBox(
                 width: 300,
                 child: RoundedButton(
-                  text: 'Save new hospital',
+                  text: _hospitalItem != null
+                      ? 'Edit Hospital'
+                      : 'Save new Hospital',
                   press: () async {
                     if (_formKey.currentState?.validate() == true) {
                       await _saveNewHospital();
                       showSnackbar(
                         context,
-                        Text('Hospital Added Successfully'),
+                        Text( _hospitalItem != null
+                        ? 'Update Successfully'
+                        :'Hospital Added Successfully'),
                       );
                       Navigator.pop(context);
                     } else {
@@ -168,7 +175,14 @@ class AddHospitalScreen extends StatelessWidget {
     final latitude = double.tryParse(latitudeController.text) ?? 0;
     final longitude = double.tryParse(longitudeController.text) ?? 0;
 
-    return HospitalService().addNew( name, address, type, phoneNo, latitude, longitude );
+    if (_hospitalItem != null) {
+      //editing
+      return HospitalService().update( _hospitalItem!.id! ,name, address, type, phoneNo, latitude, longitude );
+    } else {
+      //new adding
+      return HospitalService().addNew( name, address, type, phoneNo, latitude, longitude );
+    }
+
   }
 
   void _prefillInputs(HospitalItem hospitalItem) {

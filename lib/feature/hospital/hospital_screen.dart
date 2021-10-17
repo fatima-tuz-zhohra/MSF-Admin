@@ -1,7 +1,7 @@
 import 'package:colorize_text_avatar/colorize_text_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_template/common/data/model/items/hospital_item.dart';
-import 'package:flutter_project_template/common/data/services/database.dart';
+import 'package:flutter_project_template/common/data/services/hospital_service.dart';
 import 'package:flutter_project_template/util/ui_utils.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
 import 'package:flutter_project_template/widget/top_bar.dart';
@@ -21,14 +21,16 @@ class _HospitalScreenState extends State<HospitalScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, AddHospitalScreen.ROUTE);
         },
-        label: Text('Add New Hospital'),
+        child: Icon(Icons.add),
       ),
-      appBar: TopBar(title: 'Hospital List', canGoBack: true,),
-
+      appBar: TopBar(
+        title: 'Hospital List',
+        canGoBack: true,
+      ),
       body: MsfAdminBasePageLayout(
         child: StreamBuilder<List<HospitalItem>>(
           stream: HospitalService().getHospital(),
@@ -108,7 +110,7 @@ class _HospitalListContentState extends State<HospitalListContent> {
                 ],
                 rows: List.generate(
                   widget.hospitals.length,
-                      (index) => hospitalsDataRow(widget.hospitals[index], context),
+                  (index) => hospitalsDataRow(widget.hospitals[index], context),
                 ),
               ),
             ),
@@ -117,6 +119,7 @@ class _HospitalListContentState extends State<HospitalListContent> {
       ),
     );
   }
+
   DataRow hospitalsDataRow(HospitalItem hospitalInfo, BuildContext context) {
     return DataRow(
       cells: [
@@ -157,7 +160,6 @@ class _HospitalListContentState extends State<HospitalListContent> {
           ),
         ),*/
         DataCell(Text(hospitalInfo.address!)),
-
         DataCell(Text(hospitalInfo.type!)),
         DataCell(Text(hospitalInfo.phoneNo!)),
         DataCell(Text('${hospitalInfo.latitude!}')),
@@ -183,7 +185,7 @@ class _HospitalListContentState extends State<HospitalListContent> {
               TextButton(
                 child: Text("Delete",
                     style:
-                    TextStyle(color: Theme.of(context).colorScheme.error)),
+                        TextStyle(color: Theme.of(context).colorScheme.error)),
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -195,7 +197,7 @@ class _HospitalListContentState extends State<HospitalListContent> {
                                   Icon(Icons.warning_outlined,
                                       size: 36,
                                       color:
-                                      Theme.of(context).colorScheme.error),
+                                          Theme.of(context).colorScheme.error),
                                   SizedBox(height: 20),
                                   Text("Confirm Deletion"),
                                 ],
@@ -236,7 +238,7 @@ class _HospitalListContentState extends State<HospitalListContent> {
                                               primary: Theme.of(context)
                                                   .colorScheme
                                                   .error),
-                                          onPressed: () async{
+                                          onPressed: () async {
                                             await HospitalService()
                                                 .delete(hospitalInfo);
                                             showSnackbar(

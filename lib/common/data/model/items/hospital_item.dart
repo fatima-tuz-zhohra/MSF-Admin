@@ -29,4 +29,17 @@ class HospitalItem {
       'longitude': this.longitude,
     };
   }
+
+  factory HospitalItem.fromMap(Map<String, dynamic> map){
+    return HospitalItem(
+      map['id'] as String,
+      map['name'] as String,
+      map['address'] as String,
+      map['type'] as String,
+      map['phoneNo'] as String,
+
+      map['latitude'] as double,
+      map['longitude'] as double,
+    );
+  }
 }
