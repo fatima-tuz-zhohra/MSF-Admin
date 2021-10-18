@@ -5,6 +5,8 @@ class AppConstants {
   static const phoneNumberValidation = "^01[0-9]{9}\$";
   static const priceValidation = "^\d{0,5}(\.\d{1,4})?";
 }
-
-
-
+class BloodConstants{
+  static const open = 'Open';
+  static const approved = 'Approved';
+  static const closed = 'Closed';
+}

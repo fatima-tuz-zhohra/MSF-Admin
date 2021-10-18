@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_project_template/util/url_utils.dart';
 
-class BloodRequestPost{
+import '../../constants.dart';
+
+class BloodRequest {
   String docId = '';
   String uid;
   String name;
@@ -11,7 +14,7 @@ class BloodRequestPost{
   String status;
   String postedDate = '';
 
-  BloodRequestPost({
+  BloodRequest({
     required this.uid,
     required this.name,
     required this.picture,
@@ -35,8 +38,8 @@ class BloodRequestPost{
     };
   }
 
-  factory BloodRequestPost.fromMap(Map<String, dynamic> map) {
-    final request = BloodRequestPost(
+  factory BloodRequest.fromMap(Map<String, dynamic> map) {
+    final request = BloodRequest(
       uid: map['uid'] as String,
       name: map['name'] as String,
       picture: map['picture'] as String,
@@ -45,6 +48,7 @@ class BloodRequestPost{
       status: map['status'] as String,
       description: map['description'] as String,
     );
+
     request.docId = map['docId'] as String;
     final timeStamp = map['posted_on'] as Timestamp;
     request.postedDate = formatDateTime('dd MMM, yyyy', timeStamp.toDate());

@@ -1,20 +1,25 @@
 import 'package:colorize_text_avatar/colorize_text_avatar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project_template/common/data/model/blood_request_post.dart';
+import 'package:flutter_project_template/common/data/services/blood_requests_service.dart';
 import 'package:flutter_project_template/util/color_tag.dart';
+import 'package:flutter_project_template/util/ui_utils.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
 import 'package:flutter_project_template/widget/top_bar.dart';
 
-class BloodRequestPostListScreen extends StatelessWidget {
+class BloodRequestListScreen extends StatelessWidget {
   static const ROUTE = "/blood-request-post-list";
 
-  const BloodRequestPostListScreen({Key? key}) : super(key: key);
+  const BloodRequestListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final List<BloodRequest> bloodRequests =
-    ModalRoute.of(context)!.settings.arguments as List<BloodRequest>;
+        ModalRoute.of(context)!.settings.arguments as List<BloodRequest>;
     return Scaffold(
-      appBar: TopBar(title: 'Blood Request Post Screen',),
+      appBar: TopBar(
+        title: 'Blood Requests',
+      ),
       body: MsfAdminBasePageLayout(
         child: Container(
           padding: EdgeInsets.all(8),
@@ -56,7 +61,8 @@ class BloodRequestPostListScreen extends StatelessWidget {
                     ],
                     rows: List.generate(
                       bloodRequests.length,
-                          (index) => bloodRequestsDataRow(bloodRequests[index], context),
+                      (index) =>
+                          bloodRequestsDataRow(bloodRequests[index], context),
                     ),
                   ),
                 ),
@@ -68,7 +74,8 @@ class BloodRequestPostListScreen extends StatelessWidget {
     );
   }
 
-  DataRow bloodRequestsDataRow(BloodRequest bloodRequestInfo, BuildContext context) {
+  DataRow bloodRequestsDataRow(
+      BloodRequest bloodRequestInfo, BuildContext context) {
     return DataRow(
       cells: [
         DataCell(
@@ -100,16 +107,19 @@ class BloodRequestPostListScreen extends StatelessWidget {
             padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
               color: getRoleColor(bloodRequestInfo.bloodGroup).withOpacity(.2),
-              border: Border.all(color: getRoleColor(bloodRequestInfo.bloodGroup)),
+              border:
+                  Border.all(color: getRoleColor(bloodRequestInfo.bloodGroup)),
               borderRadius: BorderRadius.all(Radius.circular(5.0) //
-              ),
+                  ),
             ),
             child: Text(bloodRequestInfo.bloodGroup!),
           ),
         ),
         DataCell(Text(bloodRequestInfo.phoneNo!)),
-        DataCell(Text(bloodRequestInfo.Description,
-          maxLines: 5,)),
+        DataCell(Text(
+          bloodRequestInfo.description,
+          maxLines: 5,
+        )),
         DataCell(Text(bloodRequestInfo.postedDate ?? '')),
         DataCell(Text(bloodRequestInfo.status)),
         DataCell(
@@ -119,7 +129,10 @@ class BloodRequestPostListScreen extends StatelessWidget {
                 child: Text('Approve',
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.primary)),
-                onPressed: () {},
+                onPressed: () async {
+                  await BloodRequestListService().approve(bloodRequestInfo);
+                  showSnackbar(context, Text('Approved'));
+                },
               ),
               SizedBox(
                 width: 6,
@@ -127,7 +140,7 @@ class BloodRequestPostListScreen extends StatelessWidget {
               TextButton(
                 child: Text("Delete",
                     style:
-                    TextStyle(color: Theme.of(context).colorScheme.error)),
+                        TextStyle(color: Theme.of(context).colorScheme.error)),
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -139,7 +152,7 @@ class BloodRequestPostListScreen extends StatelessWidget {
                                   Icon(Icons.warning_outlined,
                                       size: 36,
                                       color:
-                                      Theme.of(context).colorScheme.error),
+                                          Theme.of(context).colorScheme.error),
                                   SizedBox(height: 20),
                                   Text("Confirm Deletion"),
                                 ],
@@ -180,7 +193,12 @@ class BloodRequestPostListScreen extends StatelessWidget {
                                               primary: Theme.of(context)
                                                   .colorScheme
                                                   .error),
-                                          onPressed: () {},
+                                          onPressed: () async {
+                                            await BloodRequestListService()
+                                                .approve(bloodRequestInfo);
+                                            showSnackbar(
+                                                context, Text('Deleted'));
+                                          },
                                           label: Text("Delete"))
                                     ],
                                   )

@@ -30,5 +30,5 @@ final appRoutes = {
   AddMedicineScreen.ROUTE: (context) => AddMedicineScreen(),
   AddHospitalScreen.ROUTE: (context) => AddHospitalScreen(),
   AddOxygenSupplierScreen.ROUTE: (context) => AddOxygenSupplierScreen(),
-  BloodRequestPostListScreen.ROUTE: (context) => BloodRequestPostListScreen(),
+  BloodRequestListScreen.ROUTE: (context) => BloodRequestListScreen(),
 };
