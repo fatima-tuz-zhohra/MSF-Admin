@@ -195,7 +195,7 @@ class BloodRequestListScreen extends StatelessWidget {
                                                   .error),
                                           onPressed: () async {
                                             await BloodRequestListService()
-                                                .approve(bloodRequestInfo);
+                                                .delete(bloodRequestInfo);
                                             showSnackbar(
                                                 context, Text('Deleted'));
                                           },
