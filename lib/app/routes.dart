@@ -1,6 +1,6 @@
-
 import 'package:flutter_project_template/feature/blood/blood_bank_screen.dart';
 import 'package:flutter_project_template/feature/blood/blood_donor_screen.dart';
+import 'package:flutter_project_template/feature/blood/blood_request_post_screen.dart';
 import 'package:flutter_project_template/feature/dashboard_main/dashboard_page.dart';
 import 'package:flutter_project_template/feature/doctor/doctor_screen.dart';
 import 'package:flutter_project_template/feature/hospital/add_hospital_screen.dart';
@@ -30,4 +30,5 @@ final appRoutes = {
   AddMedicineScreen.ROUTE: (context) => AddMedicineScreen(),
   AddHospitalScreen.ROUTE: (context) => AddHospitalScreen(),
   AddOxygenSupplierScreen.ROUTE: (context) => AddOxygenSupplierScreen(),
+  BloodRequestPostListScreen.ROUTE: (context) => BloodRequestPostListScreen(),
 };
