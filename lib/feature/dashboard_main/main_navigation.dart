@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_template/feature/blood/blood_donor_screen.dart';
 import 'package:flutter_project_template/feature/dashboard_main/dashboard_page.dart';
 import 'package:flutter_project_template/feature/dashboard_main/profile_screen.dart';
 import 'package:flutter_project_template/feature/doctor/doctor_screen.dart';
 import 'package:flutter_project_template/feature/hospital/hospital_screen.dart';
+import 'package:flutter_project_template/feature/login/login_page.dart';
 import 'package:flutter_project_template/feature/medicine/medicine_screen.dart';
 import 'package:flutter_project_template/feature/oxygen/oxygen_supplier_screen.dart';
 import 'package:flutter_project_template/widget/top_bar.dart';
@@ -184,6 +186,23 @@ class MainNavigation extends StatelessWidget {
                         Icon(Icons.info),
                         SizedBox(width: 8,),
                         Text('About Us'),
+                      ],
+                    ),
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.all(16.0),
+                      textStyle: theme.textTheme.subtitle2,
+                    ),
+                    onPressed: () async{
+                      await  FirebaseAuth.instance.signOut();
+                      Navigator.pushNamedAndRemoveUntil(context, LoginPage.ROUTE, (route) => false);
+                    },
+                    child:  Row(
+                      children: [
+                        Icon(Icons.logout),
+                        SizedBox(width: 8,),
+                        Text('LogOut'),
                       ],
                     ),
                   ),
