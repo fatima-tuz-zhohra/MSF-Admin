@@ -85,60 +85,60 @@ class SignupPage extends StatelessWidget {
     _passwordEditingController.clear();
     _rePasswordEditingController.clear();
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        CredentialInputWidget(
-          hint: 'Email',
-          textEditingController: _emailEditingController,
-          textInputAction: TextInputAction.next,
-          prefixIcon: Icon(
-            Icons.email,
-            color: Theme.of(context).colorScheme.onPrimary,
+    return FractionallySizedBox(
+      widthFactor: .3,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CredentialInputWidget(
+            hint: 'Email',
+            textEditingController: _emailEditingController,
+            textInputAction: TextInputAction.next,
+            prefixIcon: Icon(
+              Icons.email,
+            ),
           ),
-        ),
-        SizedBox(height: 8),
-        CredentialInputWidget(
-          hint: 'Password',
-          textEditingController: _passwordEditingController,
-          textInputAction: TextInputAction.next,
-          prefixIcon: Icon(
-            Icons.lock,
-            color: Theme.of(context).colorScheme.onPrimary,
+          SizedBox(height: 8),
+          CredentialInputWidget(
+            hint: 'Password',
+            textEditingController: _passwordEditingController,
+            textInputAction: TextInputAction.next,
+            prefixIcon: Icon(
+              Icons.lock,
+            ),
+            obscureText: true,
           ),
-          obscureText: true,
-        ),
-        SizedBox(height: 8),
-        CredentialInputWidget(
-          hint: 'Repeat Password',
-          textEditingController: _rePasswordEditingController,
-          textInputAction: TextInputAction.next,
-          prefixIcon: Icon(
-            Icons.lock,
-            color: Theme.of(context).colorScheme.onPrimary,
+          SizedBox(height: 8),
+          CredentialInputWidget(
+            hint: 'Repeat Password',
+            textEditingController: _rePasswordEditingController,
+            textInputAction: TextInputAction.next,
+            prefixIcon: Icon(
+              Icons.lock,
+            ),
+            obscureText: true,
           ),
-          obscureText: true,
-        ),
-        SizedBox(height: 16),
-        _createTermsView(context),
-        SizedBox(height: 16),
-        SubmitButton(
-          text: 'Sign Up',
-          onPressed: () {
-            final signUpBloc = BlocProvider.of<SignUpBloc>(context);
-            if (!signUpBloc.isTermsAccepted) {
-              showSnackbar(context, Text('Please Accept Terms'));
-              return;
-            }
+          SizedBox(height: 16),
+          _createTermsView(context),
+          SizedBox(height: 16),
+          SubmitButton(
+            text: 'Sign Up',
+            onPressed: () {
+              final signUpBloc = BlocProvider.of<SignUpBloc>(context);
+              if (!signUpBloc.isTermsAccepted) {
+                showSnackbar(context, Text('Please Accept Terms'));
+                return;
+              }
 
-            signUpBloc.add(EmailPassSignUpEvent(
-              email: _emailEditingController.text,
-              password: _passwordEditingController.text,
-              rePassword: _rePasswordEditingController.text,
-            ));
-          },
-        ),
-      ],
+              signUpBloc.add(EmailPassSignUpEvent(
+                email: _emailEditingController.text,
+                password: _passwordEditingController.text,
+                rePassword: _rePasswordEditingController.text,
+              ));
+            },
+          ),
+        ],
+      ),
     );
   }
 

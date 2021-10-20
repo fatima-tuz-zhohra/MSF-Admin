@@ -23,22 +23,24 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding:  EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Image.asset(
-              'assets/icons/app_logo.png',
-              height: 110.0,
-              width: 110.0,
-            ),
-            BlocProvider<LoginBloc>(
-              create: (_) => LoginBloc(),
-              child: BlocConsumer<LoginBloc, LoginState>(
-                builder: _buildWidgetForState,
-                listener: _listenToLoginState,
+        child: Card(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.asset(
+                'assets/icons/app_logo.png',
+                height: 110.0,
+                width: 110.0,
               ),
-            )
-          ],
+              BlocProvider<LoginBloc>(
+                create: (_) => LoginBloc(),
+                child: BlocConsumer<LoginBloc, LoginState>(
+                  builder: _buildWidgetForState,
+                  listener: _listenToLoginState,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -121,15 +123,11 @@ class LoginPage extends StatelessWidget {
 
   Widget _createSignUpButton(BuildContext context) {
     return TextButton(
-      onPressed: () {
-        Navigator.of(context).pushNamed(SignupPage.ROUTE);
-      },
+      onPressed: null,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Sign Up'),
-          SizedBox(width: 4),
-          Icon(Icons.arrow_forward)
+          Text('  '),
         ],
       ),
     );
