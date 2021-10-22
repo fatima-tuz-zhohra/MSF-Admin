@@ -6,7 +6,7 @@ class AppConstants {
   static const priceValidation = "^\d{0,5}(\.\d{1,4})?";
 }
 class BloodConstants{
-  //static const open = 'Open';
+  static const open = 'Open';
   static const approved = 'Approved';
   static const closed = 'Closed';
 }
