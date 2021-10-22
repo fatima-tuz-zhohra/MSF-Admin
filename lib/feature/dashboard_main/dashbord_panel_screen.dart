@@ -21,41 +21,11 @@ class DashboardPanelScreen extends StatelessWidget {
         shrinkWrap: true,
         padding: EdgeInsets.zero,
         children: [
-          StreamBuilder<List<User>>(
-              stream: UsersService().getAllUsers(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: Container(
-                      height: 44,
-                      width: 44,
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                } else if (snapshot.hasData) {
-                  final data = snapshot.requireData;
-                  return DashboardListView(
-                    title: '${data.length}',
-                    subTitle: 'User Registrations',
-                    image: 'assets/icons/user_icon.png',
-                    onTap: () {
-                      Navigator.pushNamed(context, UserListScreen.ROUTE,
-                          arguments: data);
-                    },
-                    color: theme.isDarkMode()
-                        ? Colors.blue.shade200
-                        : Colors.blue.shade300,
-                    color2: theme.isDarkMode()
-                        ? Colors.blue.shade300
-                        : Colors.blue.shade500,
-                  );
-                } else {
-                  return Container();
-                }
-              }),
+          _createUserRegistrationCard(context),
+          _createBloodRequestCard(context),
           DashboardListView(
-            title: '150',
-            subTitle: 'Donor Request',
+            title: '000',
+            subTitle: 'Doctor Request',
             image: 'assets/icons/blood-donor_icon.png',
             onTap: () {},
             color: theme.isDarkMode()
@@ -65,7 +35,6 @@ class DashboardPanelScreen extends StatelessWidget {
                 ? Colors.green.shade300
                 : Colors.green.shade500,
           ),
-          _createBloodRequestCard(context),
         ],
       ),
     );
@@ -103,6 +72,42 @@ class DashboardPanelScreen extends StatelessWidget {
               color2: theme.isDarkMode()
                   ? Colors.orange.shade300
                   : Colors.orange.shade500,
+            );
+          } else {
+            return Container();
+          }
+        });
+  }
+
+  Widget _createUserRegistrationCard(BuildContext context){
+    final theme = Theme.of(context);
+    return StreamBuilder<List<User>>(
+        stream: UsersService().getAllUsers(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: Container(
+                height: 44,
+                width: 44,
+                child: CircularProgressIndicator(),
+              ),
+            );
+          } else if (snapshot.hasData) {
+            final data = snapshot.requireData;
+            return DashboardListView(
+              title: '${data.length}',
+              subTitle: 'User Registrations',
+              image: 'assets/icons/user_icon.png',
+              onTap: () {
+                Navigator.pushNamed(context, UserListScreen.ROUTE,
+                    arguments: data);
+              },
+              color: theme.isDarkMode()
+                  ? Colors.blue.shade200
+                  : Colors.blue.shade300,
+              color2: theme.isDarkMode()
+                  ? Colors.blue.shade300
+                  : Colors.blue.shade500,
             );
           } else {
             return Container();
