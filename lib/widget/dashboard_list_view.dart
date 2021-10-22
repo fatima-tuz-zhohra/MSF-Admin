@@ -44,10 +44,10 @@ class DashboardListView extends StatelessWidget {
                     children: [
                   Text(title,
                       style: theme.textTheme.headline4
-                          ?.copyWith(fontWeight: FontWeight.bold,color: Theme.of(context).colorScheme.background)
+                          ?.copyWith(fontWeight: FontWeight.bold)
                   ),
                   SizedBox(height: 10),
-                  Text(subTitle, style: theme.textTheme.bodyText2?.copyWith(color: Theme.of(context).colorScheme.background)),
+                  Text(subTitle, style: theme.textTheme.bodyText2),
                 ]),
               ),
               Positioned(

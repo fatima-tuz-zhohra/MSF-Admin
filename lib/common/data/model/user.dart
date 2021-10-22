@@ -1,7 +1,8 @@
+
+
 class User {
   String name;
   String email;
-  String? date;
   String phoneNo;
   String? role;
   String image;
@@ -12,7 +13,7 @@ class User {
   User({
     required this.name,
     required this.email,
-    this.date,
+
     required this.phoneNo,
     this.role,
     required this.image,
@@ -25,7 +26,6 @@ class User {
     return {
       'name': this.name,
       'email': this.email,
-      'date' : this.date,
       'phoneNo': this.phoneNo,
       'role': this.role,
       'image': this.image,
@@ -39,7 +39,6 @@ class User {
     return User(
       name: map['name'] as String,
       email: map['email'] as String,
-      date: map['date'] as String?,
       phoneNo: map['phoneNo'] as String,
       role: map['role'] as String?,
       image: map['image'] as String,

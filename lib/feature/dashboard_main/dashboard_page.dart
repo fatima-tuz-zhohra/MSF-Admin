@@ -18,8 +18,12 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   bool _switchValue = true;
 
+
   @override
   Widget build(BuildContext context) {
+
+    final theme = Theme.of(context);
+
     return Scaffold(
       drawer: Drawer(child: MainNavigation()),
       body: MsfAdminBasePageLayout(
@@ -28,7 +32,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: Column(
                 children: [
                   TopBar(title: 'Medical Support Finder',
-                  actions: [
+                  /*actions: [
                     Padding(
                       padding: const EdgeInsets.only(right: 16.0,),
                       child: Column(
@@ -43,12 +47,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ],
                       ),
                     )
-                  ],),
-                  Text("Hello, "),
-                  Text('Welcome to your dashboard'),
-                  SizedBox(height: 16),
+                  ],*/
+                  ),
+                  const SizedBox(height: 20,),
+                  Text("Hello, Admin",
+                      style: theme.primaryTextTheme.headline6?.copyWith(color: theme.colorScheme.primary),
+                  ),
+                  const SizedBox(height: 8,),
+                  //Text('Welcome to your dashboard'),
+                  const SizedBox(height: 20),
                   DashboardPanelScreen(),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 20),
                   HomeCategoryView(),
                 ],
               ),
