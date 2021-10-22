@@ -1,97 +1,70 @@
 import 'package:colorize_text_avatar/colorize_text_avatar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project_template/common/data/model/items/blood_donor_item.dart';
-import 'package:flutter_project_template/common/data/services/database.dart';
+import 'package:flutter_project_template/common/data/model/blood_request_post.dart';
+import 'package:flutter_project_template/common/data/services/blood_requests_service.dart';
+import 'package:flutter_project_template/util/color_tag.dart';
+import 'package:flutter_project_template/util/ui_utils.dart';
 import 'package:flutter_project_template/widget/msf_admin_base_page_layout.dart';
 import 'package:flutter_project_template/widget/top_bar.dart';
 
-class BloodDonorScreen extends StatefulWidget {
-  const BloodDonorScreen({Key? key}) : super(key: key);
+class BloodRequestListScreen extends StatelessWidget {
+  static const ROUTE = "/blood-request-post-list";
 
-  static const ROUTE = "/bloodDonors";
+  const BloodRequestListScreen({Key? key}) : super(key: key);
 
-  @override
-  _BloodDonorScreenState createState() => _BloodDonorScreenState();
-}
-
-class _BloodDonorScreenState extends State<BloodDonorScreen> {
   @override
   Widget build(BuildContext context) {
+    final List<BloodRequest> bloodRequests =
+        ModalRoute.of(context)!.settings.arguments as List<BloodRequest>;
     return Scaffold(
-      appBar: TopBar(title: 'Blood Donors List', canGoBack: true,),
-
+      appBar: TopBar(
+        title: 'Blood Requests',
+      ),
       body: MsfAdminBasePageLayout(
-        child: StreamBuilder<List<BloodDonorItem>>(
-          stream: BloodDonorService().getBloodDonors(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Container(
-                height: 44,
-                width: 44,
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasData) {
-              final data = snapshot.requireData;
-              return BloodDonorListContent(bloodDonors: data);
-            } else {
-              return Container();
-            }
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class BloodDonorListContent extends StatefulWidget {
-  const BloodDonorListContent({Key? key, required this.bloodDonors}) : super(key: key);
-  final List<BloodDonorItem> bloodDonors;
-
-  @override
-  _BloodDonorListContentState createState() => _BloodDonorListContentState();
-}
-
-class _BloodDonorListContentState extends State<BloodDonorListContent> {
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Container(
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: SizedBox(
-              width: double.infinity,
-              child: DataTable(
-                horizontalMargin: 0,
-                columnSpacing: 16,
-                columns: [
-                  DataColumn(
-                    label: Text('Name'),
+        child: Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+          ),
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: SingleChildScrollView(
+                //scrollDirection: Axis.horizontal,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: DataTable(
+                    horizontalMargin: 0,
+                    columnSpacing: 16,
+                    columns: [
+                      DataColumn(
+                        label: Text('Name'),
+                      ),
+                      DataColumn(
+                        label: Text('Blood Group'),
+                      ),
+                      DataColumn(
+                        label: Text('Phone No'),
+                      ),
+                      DataColumn(
+                        label: Text('Description'),
+                      ),
+                      DataColumn(
+                        label: Text('Posted Date'),
+                      ),
+                      DataColumn(
+                        label: Text('Status'),
+                      ),
+                      DataColumn(
+                        label: Text('Operation'),
+                      ),
+                    ],
+                    rows: List.generate(
+                      bloodRequests.length,
+                      (index) =>
+                          bloodRequestsDataRow(bloodRequests[index], context),
+                    ),
                   ),
-                  DataColumn(
-                    label: Text('Address'),
-                  ),
-                  DataColumn(
-                    label: Text('Phone Number'),
-                  ),
-                  DataColumn(
-                    label: Text('Blood Group'),
-                  ),
-                  DataColumn(
-                    label: Text('Operation'),
-                  ),
-                ],
-                rows: List.generate(
-                  widget.bloodDonors.length,
-                      (index) => bloodDonorDataRow(widget.bloodDonors[index], context),
                 ),
               ),
             ),
@@ -100,7 +73,9 @@ class _BloodDonorListContentState extends State<BloodDonorListContent> {
       ),
     );
   }
-  DataRow bloodDonorDataRow(BloodDonorItem bloodDonorInfo, BuildContext context) {
+
+  DataRow bloodRequestsDataRow(
+      BloodRequest bloodRequestInfo, BuildContext context) {
     return DataRow(
       cells: [
         DataCell(
@@ -114,12 +89,12 @@ class _BloodDonorListContentState extends State<BloodDonorListContent> {
                 upperCase: true,
                 numberLetters: 1,
                 shape: Shape.Rectangle,
-                text: bloodDonorInfo.name ?? '',
+                text: bloodRequestInfo.name!,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  bloodDonorInfo.name ?? '',
+                  bloodRequestInfo.name!,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -127,18 +102,37 @@ class _BloodDonorListContentState extends State<BloodDonorListContent> {
             ],
           ),
         ),
-        DataCell(Text(bloodDonorInfo.address ?? '')),
-        DataCell(Text(bloodDonorInfo.phoneNo ?? '')),
-        DataCell(Text(bloodDonorInfo.bloodGroup ?? '')),
-
+        DataCell(
+          Container(
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: getRoleColor(bloodRequestInfo.bloodGroup).withOpacity(.2),
+              border:
+                  Border.all(color: getRoleColor(bloodRequestInfo.bloodGroup)),
+              borderRadius: BorderRadius.all(Radius.circular(5.0) //
+                  ),
+            ),
+            child: Text(bloodRequestInfo.bloodGroup!),
+          ),
+        ),
+        DataCell(Text(bloodRequestInfo.phoneNo!)),
+        DataCell(Text(
+          bloodRequestInfo.description,
+          maxLines: 5,
+        )),
+        DataCell(Text(bloodRequestInfo.postedDate ?? '')),
+        DataCell(Text(bloodRequestInfo.status)),
         DataCell(
           Row(
             children: [
               TextButton(
-                child: Text('Edit',
+                child: Text('Approve',
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.primary)),
-                onPressed: () {},
+                onPressed: () async {
+                  await BloodRequestListService().approve(bloodRequestInfo);
+                  showSnackbar(context, Text('Approved'));
+                },
               ),
               SizedBox(
                 width: 6,
@@ -146,7 +140,7 @@ class _BloodDonorListContentState extends State<BloodDonorListContent> {
               TextButton(
                 child: Text("Delete",
                     style:
-                    TextStyle(color: Theme.of(context).colorScheme.error)),
+                        TextStyle(color: Theme.of(context).colorScheme.error)),
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -158,7 +152,7 @@ class _BloodDonorListContentState extends State<BloodDonorListContent> {
                                   Icon(Icons.warning_outlined,
                                       size: 36,
                                       color:
-                                      Theme.of(context).colorScheme.error),
+                                          Theme.of(context).colorScheme.error),
                                   SizedBox(height: 20),
                                   Text("Confirm Deletion"),
                                 ],
@@ -169,7 +163,7 @@ class _BloodDonorListContentState extends State<BloodDonorListContent> {
                               child: Column(
                                 children: [
                                   Text(
-                                      "Are you sure want to delete '${bloodDonorInfo.name}'?"),
+                                      "Are you sure want to delete '${bloodRequestInfo.name}'?"),
                                   SizedBox(
                                     height: 16,
                                   ),
@@ -199,7 +193,12 @@ class _BloodDonorListContentState extends State<BloodDonorListContent> {
                                               primary: Theme.of(context)
                                                   .colorScheme
                                                   .error),
-                                          onPressed: () {},
+                                          onPressed: () async {
+                                            await BloodRequestListService()
+                                                .delete(bloodRequestInfo);
+                                            showSnackbar(
+                                                context, Text('Deleted'));
+                                          },
                                           label: Text("Delete"))
                                     ],
                                   )

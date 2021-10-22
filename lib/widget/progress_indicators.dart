@@ -5,7 +5,7 @@ class AdaptiveCircularProgressIndicator extends StatelessWidget{
   Widget build(BuildContext context) {
     return Center(
       child: CircularProgressIndicator.adaptive(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.background,
       ),
     );
   }

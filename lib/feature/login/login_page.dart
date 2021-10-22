@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project_template/common/data/model/result.dart';
-import 'package:flutter_project_template/feature/home/home_page.dart';
+import 'package:flutter_project_template/feature/dashboard_main/dashboard_page.dart';
 import 'package:flutter_project_template/feature/login/bloc/login_bloc.dart';
 import 'package:flutter_project_template/feature/signup/signup_page.dart';
 import 'package:flutter_project_template/util/logger.dart';
@@ -23,22 +23,24 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding:  EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Image.asset(
-              'assets/icons/app_logo.png',
-              height: 110.0,
-              width: 110.0,
-            ),
-            BlocProvider<LoginBloc>(
-              create: (_) => LoginBloc(),
-              child: BlocConsumer<LoginBloc, LoginState>(
-                builder: _buildWidgetForState,
-                listener: _listenToLoginState,
+        child: Card(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.asset(
+                'assets/icons/app_logo.png',
+                height: 110.0,
+                width: 110.0,
               ),
-            )
-          ],
+              BlocProvider<LoginBloc>(
+                create: (_) => LoginBloc(),
+                child: BlocConsumer<LoginBloc, LoginState>(
+                  builder: _buildWidgetForState,
+                  listener: _listenToLoginState,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -48,7 +50,7 @@ class LoginPage extends StatelessWidget {
     Log.info(state.runtimeType);
     if (state is LoginSuccessState) {
       Future.delayed(Duration.zero).then((value) => Navigator.of(context)
-          .pushNamedAndRemoveUntil(HomePage.ROUTE, (route) => false));
+          .pushNamedAndRemoveUntil(DashboardScreen.ROUTE, (route) => false));
     } else if (state is LoginFailedState) {
       final error = state.data as Error;
       if (error.showSnackBar == true && error.info?.message != null) {
@@ -121,15 +123,11 @@ class LoginPage extends StatelessWidget {
 
   Widget _createSignUpButton(BuildContext context) {
     return TextButton(
-      onPressed: () {
-        Navigator.of(context).pushNamed(SignupPage.ROUTE);
-      },
+      onPressed: null,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Sign Up'),
-          SizedBox(width: 4),
-          Icon(Icons.arrow_forward)
+          Text('  '),
         ],
       ),
     );

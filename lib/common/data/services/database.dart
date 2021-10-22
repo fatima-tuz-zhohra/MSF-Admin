@@ -1,18 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_project_template/common/data/model/items/blood_donor_item.dart';
 import 'package:flutter_project_template/common/data/model/items/hospital_item.dart';
 import 'package:flutter_project_template/common/data/model/items/medicine_item.dart';
+import 'package:flutter_project_template/common/data/model/items/oxygen_item.dart';
 import 'package:flutter_project_template/common/data/model/profile_data.dart';
 
-class DatabaseService{
+class DatabaseService {
   final String uid;
 
   DatabaseService({required this.uid});
 
   final CollectionReference adminsCollection =
-  FirebaseFirestore.instance.collection('Admins');
+      FirebaseFirestore.instance.collection('Admins');
 
-  Future<void> updateUserData(String name, String phoneNo, String email,String image) async {
+  Future<void> updateUserData(
+      String name, String phoneNo, String email, String image) async {
     return await adminsCollection.doc(uid).set({
       'name': name,
       'phoneNo': phoneNo,
@@ -42,58 +45,48 @@ class DatabaseService{
   }
 }
 
-class MedicineService {
-  MedicineService();
 
-  final CollectionReference medicineCollection =
-  FirebaseFirestore.instance.collection('Medicine');
+class BloodDonorService {
+  BloodDonorService();
 
-  Stream<QuerySnapshot<Object?>> getMedicines() {
-    final user = FirebaseAuth.instance.currentUser;
-    print('User id: ${user?.uid}');
+  final CollectionReference bloodDonorCollection =
+      FirebaseFirestore.instance.collection('Blood_Donors');
 
-    return medicineCollection.snapshots();
-  }
-
-  Future<void> delete(MedicineItem medicineItem) async{
-    await medicineCollection.doc(medicineItem.id).delete().catchError((){});
-  }
-}
-
-class HospitalService {
-  HospitalService();
-
-  final CollectionReference hospitalCollection =
-  FirebaseFirestore.instance.collection('Hospitals');
-
-  Stream<List<HospitalItem>> getHospital() {
-    final stream = hospitalCollection.snapshots();
+  Stream<List<BloodDonorItem>> getBloodDonors() {
+    final stream = bloodDonorCollection.snapshots();
     return stream.map((updatedCollection) {
-      final List<HospitalItem> hospitals = [];
+      final List<BloodDonorItem> bloodDonors = [];
       updatedCollection.docs.forEach((element) {
         final dbItem = element.data()! as Map<String, dynamic>;
-        final hospital = HospitalItem(
+        final bloodDonor = BloodDonorItem(
+          dbItem['id'],
           dbItem['name'],
           dbItem['address'],
-          dbItem['latitude'],
-          dbItem['longitude'],
-          dbItem['type'],
           dbItem['phoneNo'],
+          dbItem['bloodGroup'],
         );
-        hospitals.add(hospital);
+        bloodDonors.add(bloodDonor);
       });
-      return hospitals;
+      return bloodDonors;
     });
   }
-}
 
-class OxygenService {
-  OxygenService();
+  Future<void> delete(BloodDonorItem bloodDonorItem) async {
+    await bloodDonorCollection
+        .doc(bloodDonorItem.id)
+        .delete()
+        .catchError(() {});
+  }
 
-  final CollectionReference oxygenCollection =
-  FirebaseFirestore.instance.collection('Oxygen_Supplier');
-
-  Stream<QuerySnapshot<Object?>> getOxygen() {
-    return oxygenCollection.snapshots();
+  Future<void> addNew(
+    String name,
+    String address,
+    String phoneNo,
+    String bloodGroup,
+  ) async {
+    final doc = bloodDonorCollection.doc();
+    final bloodDonorItem =
+        BloodDonorItem(doc.id, name, address, phoneNo, bloodGroup);
+    await doc.set(bloodDonorItem.toMap());
   }
 }

@@ -49,6 +49,7 @@ class FlutterApp extends StatelessWidget {
       title: 'Msf Admin',
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
+      darkTheme: darkTheme,
       themeMode: ThemeMode.light,
       initialRoute: initialRoute,
       routes: appRoutes,

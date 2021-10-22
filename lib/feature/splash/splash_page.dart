@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project_template/feature/authentication/bloc/auth_bloc.dart';
 import 'package:flutter_project_template/feature/authentication/bloc/auth_event.dart';
 import 'package:flutter_project_template/feature/authentication/bloc/auth_state.dart';
-import 'package:flutter_project_template/feature/home/home_page.dart';
+import 'package:flutter_project_template/feature/dashboard_main/dashboard_page.dart';
 import 'package:flutter_project_template/feature/login/login_page.dart';
 
 class SplashPage extends StatelessWidget {
@@ -18,7 +18,7 @@ class SplashPage extends StatelessWidget {
         child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthAuthenticatedState) {
-              Navigator.popAndPushNamed(context, HomePage.ROUTE);
+              Navigator.popAndPushNamed(context, DashboardScreen.ROUTE);
             } else if (state is AuthUnAuthenticatedState) {
               Navigator.popAndPushNamed(context, LoginPage.ROUTE);
             }

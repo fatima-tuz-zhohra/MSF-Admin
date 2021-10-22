@@ -12,7 +12,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
   @override
   Widget build(BuildContext context) {
     final firebaseUser = FirebaseAuth.instance.currentUser;
@@ -20,8 +19,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Container(
       child: StreamBuilder<Profile>(
-        stream: DatabaseService(uid: firebaseUser?.uid ?? '')
-            .getUserDataStream(),
+        stream:
+            DatabaseService(uid: firebaseUser?.uid ?? '').getUserDataStream(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -36,8 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-
-  Widget _createProfileView (BuildContext context, Profile profile) {
+  Widget _createProfileView(BuildContext context, Profile profile) {
     final theme = Theme.of(context);
     return Container(
       width: double.infinity,
@@ -50,7 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             end: Alignment.bottomLeft,
             colors: [
               theme.colorScheme.primary,
-              Color(0xff80cbc4),
+              theme.colorScheme.secondary,
             ]),
       ),
       child: Row(
@@ -63,9 +61,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(profile.name),
-              SizedBox(height: 2,),
-              Text(profile.phoneNo),
+              Text(
+                profile.name,
+                style: theme.primaryTextTheme.headline6?.copyWith(color: theme.colorScheme.onPrimary),
+              ),
+              SizedBox(
+                height: 2,
+              ),
+              Text(
+                profile.phoneNo,
+                style: TextStyle(
+                  color: theme.colorScheme.onPrimary,
+                ),
+              ),
             ],
           ),
         ],
