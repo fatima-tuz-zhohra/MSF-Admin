@@ -46,9 +46,6 @@ class UserListScreen extends StatelessWidget {
                         label: Text('Phone No'),
                       ),
                       DataColumn(
-                        label: Text('Registration Date'),
-                      ),
-                      DataColumn(
                         label: Text('Operation'),
                       ),
                     ],
@@ -107,7 +104,6 @@ class UserListScreen extends StatelessWidget {
         ),
         DataCell(Text(userInfo.email!)),
         DataCell(Text(userInfo.phoneNo!)),
-        DataCell(Text(userInfo.date ?? '')),
         DataCell(
           Row(
             children: [

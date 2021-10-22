@@ -20,7 +20,7 @@ class BloodRequest {
     required this.picture,
     required this.phoneNo,
     required this.bloodGroup,
-    this.status = BloodConstants.open,
+    this.status = BloodConstants.closed,
     required this.description,
   });
 
